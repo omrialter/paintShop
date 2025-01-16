@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 
-export const URL = "http://localhost:3002";
+export const URL = "http://localhost:3003";
 export const TOKEN_KEY = "posts_token";
 export const EXP_DATE_KEY = "user_exp_date";
 
