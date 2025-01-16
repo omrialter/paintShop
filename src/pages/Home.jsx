@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react'
+import { URL, doApiGet } from "../services/apiService";
 import Painting from "../components/home/Painting";
-import fakePaintings from "../fakeJson";
+
 
 
 
 function Home() {
     const [posts, setPosts] = useState([]);
 
-    const doApi = () => {
-        setPosts(fakePaintings)
-    }
+    const getPaintings = async () => {
+        try {
+            const url = URL + "/paintings/allPaintings"
+            const data = await doApiGet(url);
+            setPosts(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    };
 
 
     useEffect(() => {
-        doApi();
+        getPaintings();
 
-    }, [])
+    }, []);
 
     return (
         posts.map((item) => {

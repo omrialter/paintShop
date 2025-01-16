@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import fakePaintings from "../fakeJson";
+import { URL, doApiGet } from "../services/apiService";
 import PortPainting from "../components/portfolio/PortPainting";
 
 
@@ -7,12 +7,20 @@ function Portfolio() {
 
     const [posts, setPosts] = useState([]);
 
-    const doApi = () => {
-        setPosts(fakePaintings)
-    }
+    const getPaintings = async () => {
+        try {
+            const url = URL + "/paintings/allPaintings"
+            const data = await doApiGet(url);
+            setPosts(data);
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    };
 
     useEffect(() => {
-        doApi();
+        getPaintings();
     }, [])
 
 
