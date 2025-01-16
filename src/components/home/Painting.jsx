@@ -2,7 +2,7 @@ import React from 'react'
 
 function Painting({ name, price, available, image_url }) {
     return (
-        <div className="relative mt-4 w-5/6 mx-auto text-center bg-green-500">
+        <div className="relative mt-4 px-4 w-full mx-auto text-center lg:w-1/3">
             {(available === false) ?
                 <div className='bg-black p-2 text-white absolute right-0 top-0'>
                     SOLD

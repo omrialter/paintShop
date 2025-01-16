@@ -27,7 +27,7 @@ function Portfolio() {
 
 
     return (
-        <div className="flex-col justify-items-center w-4/6 mx-auto">
+        <div className="flex-col justify-items-center w-11/12 md:w-5/6 lg:w-4/6 mx-auto">
             {posts.map((item) => {
                 return (
                     <PortPainting
