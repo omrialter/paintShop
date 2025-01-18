@@ -5,7 +5,7 @@ function Header() {
 
 
     return (
-        <div className={`w-5/6 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
+        <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
             {/* slide menu */}
             <div className={nav ? "absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
                 <nav className='text-center '>
@@ -38,7 +38,7 @@ function Header() {
                 <div className='mt-12 py-8 '>
                     <h1 className='font-light text-center text-6xl'> OMRI ALTER</h1>
                 </div>
-                <h4 className='text-gray-500 text-lg text-center mb-8'>Distinguished Art</h4>
+                <h4 className='text-gray-500 text-lg text-center md:mb-8'>Distinguished Art</h4>
 
                 <div className='relative flex justify-between items-center h-16'>
                     <nav className='md:flex z-30 hidden  flex-grow justify-center'>
