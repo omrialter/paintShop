@@ -1,6 +1,6 @@
 import { React, useState } from 'react';
 
-function Header() {
+function AdminHeader() {
     const [nav, setNav] = useState(false);
 
 
@@ -11,16 +11,14 @@ function Header() {
                 <nav className='text-center '>
                     <ul className="flex flex-col pt-4 text-gray-800">
                         <li className='pt-2' onClick={() => setNav(!nav)}>
-                            <a className='hover:text-black text-gray-500' href='/about'>About</a>
+                            <a className='hover:text-black text-gray-500' href='/admin/paintShop'>Paint Shop</a>
+                        </li>
+
+                        <li className='pt-2' onClick={() => setNav(!nav)}>
+                            <a className='hover:text-black text-gray-500' href='/admin/portfolio'>Porfolio</a>
                         </li>
                         <li className='pt-2' onClick={() => setNav(!nav)}>
-                            <a className='hover:text-black text-gray-500' href='/'>Paint Shop</a>
-                        </li>
-                        <li className='pt-2' onClick={() => setNav(!nav)}>
-                            <a className='hover:text-black text-gray-500' href='/contact'>Contact</a>
-                        </li>
-                        <li className='pt-2' onClick={() => setNav(!nav)}>
-                            <a className='hover:text-black text-gray-500' href='/portfolio'>Porfolio</a>
+                            <a className='hover:text-black text-gray-500' href='/admin/contact'>Contacts</a>
                         </li>
                     </ul>
                 </nav>
@@ -43,17 +41,16 @@ function Header() {
                 <div className='relative flex justify-between items-center h-16'>
                     <nav className='md:flex z-30 hidden  flex-grow justify-center'>
                         <ul className='flex justify-between space-x-3 bg-white w-2/3 px-2'>
-                            <li className=' p-2 transition-transform  hover:scale-110'>
-                                <a className='hover:text-black text-gray-500' href='/about'>About</a>
-                            </li>
+
                             <li className='p-2 transition-transform  hover:scale-110'>
-                                <a className='hover:text-black text-gray-500 ' href='/'>Paint Shop</a>
+                                <a className='hover:text-black text-gray-500 ' href='/admin/paintShop'>Paint Shop</a>
                             </li>
+
                             <li className='p-2 transition-transform  hover:scale-110'>
-                                <a className='hover:text-black text-gray-500' href='/portfolio'>Portfolio</a>
+                                <a className='hover:text-black text-gray-500' href='/admin/portfolio'>Portfolio</a>
                             </li>
                             <li className=' p-2 transition-transform  hover:scale-110'>
-                                <a className='hover:text-black text-gray-500' href='/contact'>Contact</a>
+                                <a className='hover:text-black text-gray-500' href='/admin/contacts'>Contacts</a>
                             </li>
 
                         </ul>
@@ -67,4 +64,4 @@ function Header() {
     )
 }
 
-export default Header
+export default AdminHeader

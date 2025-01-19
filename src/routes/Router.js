@@ -1,30 +1,59 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
+import PaintShop from "../pages/PaintShop";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
-import Header from "../components/Header";
 import Portfolio from "../pages/Portfolio";
+import MainLayout from './MainLayout';
+import AuthAdminComp from "./AuthAdminComp";
+import AdminSignIn from '../components/admin/AdminSignIn';
+import ContactPosts from '../components/admin/ContactPosts';
+import AdminPaintShop from '../components/admin/AdminPaintShop';
+import AdminPortfolio from '../components/admin/AdminPortfolio';
+
+
+
 
 
 
 function Router() {
+
     return (
         <BrowserRouter>
-            <div className='lg:my-20 lg:mx-24 lg:border lg:border-gray-300'>
-                <Header />
-                <Routes >
-                    <Route path="/" element={<Home />} />
+            <Routes>
+                <Route element={<MainLayout />}>
+
+                    <Route path="/" element={<PaintShop />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/portfolio" element={<Portfolio />} />
+                    <Route path="/admin" element={<AdminSignIn />} />
 
-                </Routes>
-            </div>
+                </Route>
 
 
+                <Route element={<AuthAdminComp />}>
+                    <Route path="/admin/contacts" element={<ContactPosts />} />
+                    <Route path="/admin/paintShop" element={<AdminPaintShop />} />
+                    <Route path="/admin/portfolio" element={<AdminPortfolio />} />
+
+
+                </Route>
+
+
+
+
+
+
+
+            </Routes>
         </BrowserRouter>
-    )
+    );
+
+
 }
 
 export default Router
+
+
+
