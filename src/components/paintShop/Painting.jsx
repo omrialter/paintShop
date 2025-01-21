@@ -11,7 +11,7 @@ function Painting({ name, price, available, image_url }) {
             <p className='text-gray-700'>{name}</p>
             <p className='text-gray-700' >{price}</p>
             <br />
-            <hr />
+            <hr className='lg:hidden' />
         </div>
     )
 }

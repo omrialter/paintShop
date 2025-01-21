@@ -21,12 +21,12 @@ export const useUserData = () => {
   };
 
 
-  // useEffect(() => {
-  //   if (localStorage[TOKEN_KEY]) {
-  //     doApiUser();
-  //     console.log(render)
-  //   }
-  // }, [render]);
+  useEffect(() => {
+    if (localStorage[TOKEN_KEY]) {
+      doApiUser();
+      console.log(render)
+    }
+  }, [render]);
 
 
 

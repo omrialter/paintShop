@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { URL, doApiGet } from "../services/apiService";
-import Painting from "../components/home/Painting";
+import Painting from "../components/paintShop/Painting";
 
 
 

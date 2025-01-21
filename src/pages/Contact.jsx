@@ -36,7 +36,7 @@ function Contact() {
 
 
     return (
-        <div className=" md:flex w-5/6 mx-auto ">
+        <div className=" md:flex w-5/6 mx-auto mb-8 ">
             <div className=' text-center text-base md:text-xl md:w-1/2 p-2 md:h-48'>
                 Contact
             </div>

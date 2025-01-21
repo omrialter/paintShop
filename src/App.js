@@ -8,13 +8,13 @@ import './App.css';
 
 
 function App() {
-  const { userData, userSignOut, render, setRender } = useUserData();
+  const { render, setRender } = useUserData();
 
 
 
   return (
     <MyContext.Provider value={{
-      userData, userSignOut, render, setRender
+      render, setRender
     }}>
       <Router />
       <ToastContainer theme='colored' />
