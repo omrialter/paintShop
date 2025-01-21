@@ -5,8 +5,10 @@ import Painting from "../components/paintShop/Painting";
 
 
 
-function Home() {
+
+function PaintShop() {
     const [posts, setPosts] = useState([]);
+
 
     const getPaintings = async () => {
         try {
@@ -27,6 +29,7 @@ function Home() {
     }, []);
 
     return (
+
         <div className='lg:flex lg:flex-wrap w-5/6 mx-auto'>
             {
                 posts.map((item) => {
@@ -45,8 +48,7 @@ function Home() {
             }
         </div>
 
-
     )
 }
 
-export default Home
+export default PaintShop

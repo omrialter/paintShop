@@ -1,9 +1,10 @@
-import { React, useState } from 'react';
-import { TOKEN_KEY } from '../services/apiService';
+import { React, useEffect, useState } from 'react';
+import { TOKEN_KEY, doApiGet, URL } from '../services/apiService';
 
 
 function Header() {
 
+    const [count, setCount] = useState();
     const [nav, setNav] = useState(false);
 
     const userSignOut = () => {
@@ -12,10 +13,19 @@ function Header() {
         }
     };
 
+    const countUnChecked = async () => {
+        try {
+            const url = URL + "/contacts/count-unchecked"
+            const data = await doApiGet(url);
+            setCount(data.count)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-
-
-
+    useEffect(() => {
+        countUnChecked()
+    }, []);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
@@ -25,11 +35,11 @@ function Header() {
                     <nav className='text-center '>
                         <ul className="flex flex-col pt-4 text-gray-800">
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/admin/paintShop'>Paint Shop</a>
+                                <a className='hover:text-black text-gray-500' href='/'>Paint Shop</a>
                             </li>
 
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/admin/portfolio'>Porfolio</a>
+                                <a className='hover:text-black text-gray-500' href='/portfolio'>Porfolio</a>
                             </li>
                             <li className='pt-2' onClick={() => setNav(!nav)}>
                                 <a className='hover:text-black text-gray-500' href='/admin/contact'>Contacts</a>
@@ -86,14 +96,14 @@ function Header() {
                                 <ul className='flex justify-between space-x-3 bg-white w-2/3 px-2'>
 
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500 ' href='/admin/paintShop'>Paint Shop</a>
+                                        <a className='hover:text-black text-gray-500 ' href='/'>Paint Shop</a>
                                     </li>
 
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/admin/portfolio'>Portfolio</a>
+                                        <a className='hover:text-black text-gray-500' href='/portfolio'>Portfolio</a>
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/admin/contacts'>Contacts</a>
+                                        <a className='hover:text-black text-gray-500' href='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</a>
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110' onClick={() => userSignOut()}>
                                         <a className='hover:text-black text-gray-500' href='/'>Log out</a>
@@ -101,6 +111,7 @@ function Header() {
 
                                 </ul>
                             </nav>
+
                             <div className='md:inset-x-0 md:absolute md:h-[2px] md:bg-gray-300'></div>
                         </div>
 

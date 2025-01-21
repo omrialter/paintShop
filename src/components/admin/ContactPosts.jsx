@@ -1,8 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { URL, doApiGet } from "../../services/apiService";
+import React, { useEffect, useState, useContext } from 'react';
+import { URL, doApiGet, doApiMethod } from "../../services/apiService";
+import { MyContext } from "../../context/myContext";
+import ContactPost from "./ContactPost";
 
 function ContactPosts() {
     const [posts, setPosts] = useState([]);
+    const [count, setCount] = useState();
+    const { render, setRender } = useContext(MyContext);
 
     const getContacts = async () => {
         try {
@@ -14,31 +18,49 @@ function ContactPosts() {
         }
     }
 
+    const countUnChecked = async () => {
+        try {
+            const url = URL + "/contacts/count-unchecked"
+            const data = await doApiGet(url);
+            setCount(data.count)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     useEffect(() => {
         getContacts()
-    }, []);
+        countUnChecked()
+    }, [render]);
 
 
 
     return (
         <div>
-            <h2 className='text-center'>
+            <h2 className='text-center text-2xl '>
                 ContactPosts
             </h2>
-            {
-                posts.map((item) => {
-                    return (
-                        <div className='p-2 my-2 border border-black w-1/2 mx-auto' key={item._id}>
-                            <div>Name: {item.name}</div>
-                            <div>Email: {item.email}</div>
-                            <div>Subject: {item.subject}</div>
-                            <div>Message: {item.message}</div>
-                        </div>
-                    )
-                })
-            }
+            <h2 className='text-center text-lg mb-14'>({count} new Posts)</h2>
+            <div className='lg:flex lg:flex-wrap lg:gap-4 w-5/6 mx-auto'>
 
+                {
+                    posts.map((item) => {
+                        return (
+                            <ContactPost
+                                key={item._id}
+                                id={item._id}
+                                name={item.name}
+                                date_created={item.date_created}
+                                email={item.email}
+                                subject={item.subject}
+                                message={item.message}
+                                checked={item.checked}
+                            />
+                        )
+                    })
+                }
+            </div>
 
         </div>
     )

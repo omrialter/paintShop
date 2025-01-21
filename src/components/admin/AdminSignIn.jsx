@@ -24,7 +24,7 @@ function AdminSignIn() {
             if (data.token) {
                 toast.success("Welcome");
                 localStorage.setItem(TOKEN_KEY, data.token);
-                nav("/admin/contacts");
+                nav("/admin/paintShop");
                 setRender(!render);
             }
         } catch (error) {

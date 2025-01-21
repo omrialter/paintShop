@@ -11,7 +11,6 @@ function App() {
   const { render, setRender } = useUserData();
 
 
-
   return (
     <MyContext.Provider value={{
       render, setRender
