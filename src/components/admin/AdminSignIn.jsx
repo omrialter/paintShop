@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { URL, doApiMethod, TOKEN_KEY, } from "../../services/apiService";
 import { toast } from "react-toastify";
-
+import { MyContext } from "../../context/myContext";
 
 
 function AdminSignIn() {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const nav = useNavigate();
+    const { render, setRender } = useContext(MyContext);
+
 
     const onSubForm = (_bodyData) => {
         logIn(_bodyData);
@@ -23,6 +25,7 @@ function AdminSignIn() {
                 toast.success("Welcome");
                 localStorage.setItem(TOKEN_KEY, data.token);
                 nav("/admin/contacts");
+                setRender(!render);
             }
         } catch (error) {
 
