@@ -8,8 +8,7 @@ import Portfolio from "../pages/Portfolio";
 import Header from '../components/Header';
 import AdminSignIn from '../components/admin/AdminSignIn';
 import ContactPosts from '../components/admin/ContactPosts';
-import AdminPaintShop from '../components/admin/AdminPaintShop';
-import AdminPortfolio from '../components/admin/AdminPortfolio';
+
 
 
 
@@ -29,14 +28,7 @@ function Router() {
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/admin" element={<AdminSignIn />} />
-
-                    {localStorage[TOKEN_KEY] &&
-                        <>
-                            <Route path="/admin/contacts" element={<ContactPosts />} />
-                            <Route path="/admin/paintShop" element={<AdminPaintShop />} />
-                            <Route path="/admin/portfolio" element={<AdminPortfolio />} />
-                        </>
-                    }
+                    {localStorage[TOKEN_KEY] && <Route path="/admin/contact" element={<ContactPosts />} />}
                 </Routes>
             </BrowserRouter>
         </div>
