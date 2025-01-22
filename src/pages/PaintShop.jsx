@@ -38,7 +38,6 @@ function PaintShop() {
                             key={item._id}
                             id={item._id}
                             name={item.name}
-                            size={item.size}
                             price={item.price}
                             image_url={item.image_url}
                             available={item.available}
