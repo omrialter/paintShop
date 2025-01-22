@@ -2,9 +2,9 @@ import axios from "axios";
 
 
 
-export const URL = "http://localhost:3003";
+export const URL = "http://localhost:3005";
 export const TOKEN_KEY = "posts_token";
-export const EXP_DATE_KEY = "user_exp_date";
+
 
 export const doApiGet = async (_url) => {
     try {
@@ -17,6 +17,9 @@ export const doApiGet = async (_url) => {
         return resp.data;
     }
     catch (err) {
+        if (err.response && err.response.status === 401) {
+            localStorage.removeItem(TOKEN_KEY);
+        }
         throw err;
     }
 }
@@ -34,6 +37,9 @@ export const doApiMethod = async (_url, _method, _body) => {
         return resp.data;
     }
     catch (err) {
+        if (err.response && err.response.status === 401) {
+            localStorage.removeItem(TOKEN_KEY);
+        }
         throw err;
     }
 }

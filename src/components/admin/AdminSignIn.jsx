@@ -44,7 +44,7 @@ function AdminSignIn() {
             <div className=' text-center text-base md:text-xl p-2'>
                 Sign in
             </div>
-            <form className="md:w-1/2 mx-auto p-2" onSubmit={handleSubmit(onSubForm)}>
+            <form className="md:w-1/2 mx-auto p-2 text-center" onSubmit={handleSubmit(onSubForm)}>
 
 
                 {/* Email */}
@@ -88,7 +88,7 @@ function AdminSignIn() {
                 {/* Submit Button */}
                 <button
                     type="submit"
-                    className="w-1/3 py-3 font-semibold  transition duration-200 hover:bg-gray-900 hover:text-white focus:ring-2 focus:ring-indigo-400 focus:outline-none border-2 border-black"
+                    className="w-1/3 py-3 font-semibold transition duration-200 hover:bg-gray-900 hover:text-white focus:ring-2 focus:ring-indigo-400 focus:outline-none border-2 border-black"
                 >
                     Submit
                 </button>
