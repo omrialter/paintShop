@@ -1,15 +1,19 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { TOKEN_KEY, doApiGet, URL } from '../services/apiService';
+import { MyContext } from "../context/myContext";
+import { Link } from "react-router-dom";
 
 
 function Header() {
-
+    const { render, setRender } = useContext(MyContext);
     const [count, setCount] = useState();
     const [nav, setNav] = useState(false);
+
 
     const userSignOut = () => {
         if (window.confirm("Are you sure you want to log out")) {
             localStorage.removeItem(TOKEN_KEY);
+            setRender(!render);
         }
     };
 
@@ -23,9 +27,11 @@ function Header() {
         }
     }
 
+
     useEffect(() => {
         countUnChecked()
-    }, []);
+
+    }, [render]);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
@@ -35,17 +41,17 @@ function Header() {
                     <nav className='text-center '>
                         <ul className="flex flex-col pt-4 text-gray-800">
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/'>Paint Shop</a>
+                                <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
                             </li>
 
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/portfolio'>Porfolio</a>
+                                <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
                             </li>
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/admin/contact'>Contacts</a>
+                                <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
                             </li>
                             <li className='pt-2' onClick={() => userSignOut()}>
-                                <a className='hover:text-black text-gray-500' href='/'>Log out</a>
+                                <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
                             </li>
 
                         </ul>
@@ -58,16 +64,16 @@ function Header() {
                     <nav className='text-center '>
                         <ul className="flex flex-col pt-4 text-gray-800">
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/about'>About</a>
+                                <Link className='hover:text-black text-gray-500' to='/about'>About</Link>
                             </li>
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/'>Paint Shop</a>
+                                <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
                             </li>
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/contact'>Contact</a>
+                                <Link className='hover:text-black text-gray-500' to='/contact'>Contact</Link>
                             </li>
                             <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <a className='hover:text-black text-gray-500' href='/portfolio'>Porfolio</a>
+                                <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
                             </li>
                         </ul>
                     </nav>
@@ -96,17 +102,17 @@ function Header() {
                                 <ul className='flex justify-between space-x-3 bg-white w-2/3 px-2'>
 
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500 ' href='/'>Paint Shop</a>
+                                        <Link className='hover:text-black text-gray-500 ' to='/'>Paint Shop</Link>
                                     </li>
 
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/portfolio'>Portfolio</a>
+                                        <Link className='hover:text-black text-gray-500' to='/portfolio'>Portfolio</Link>
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</a>
+                                        <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110' onClick={() => userSignOut()}>
-                                        <a className='hover:text-black text-gray-500' href='/'>Log out</a>
+                                        <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
                                     </li>
 
                                 </ul>
@@ -135,16 +141,16 @@ function Header() {
                             <nav className='md:flex z-30 hidden  flex-grow justify-center'>
                                 <ul className='flex justify-between space-x-3 bg-white w-2/3 px-2'>
                                     <li className=' p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/about'>About</a>
+                                        <Link className='hover:text-black text-gray-500' to='/about'>About</Link>
                                     </li>
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500 ' href='/'>Paint Shop</a>
+                                        <Link className='hover:text-black text-gray-500 ' to='/'>Paint Shop</Link>
                                     </li>
                                     <li className='p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/portfolio'>Portfolio</a>
+                                        <Link className='hover:text-black text-gray-500' to='/portfolio'>Portfolio</Link>
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110'>
-                                        <a className='hover:text-black text-gray-500' href='/contact'>Contact</a>
+                                        <Link className='hover:text-black text-gray-500' to='/contact'>Contact</Link>
                                     </li>
 
                                 </ul>
