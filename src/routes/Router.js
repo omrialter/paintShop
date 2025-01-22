@@ -8,6 +8,7 @@ import Portfolio from "../pages/Portfolio";
 import Header from '../components/Header';
 import AdminSignIn from '../components/admin/AdminSignIn';
 import ContactPosts from '../components/admin/ContactPosts';
+import PickedPainting from "../components/paintShop/PickedPainting";
 
 
 
@@ -27,6 +28,7 @@ function Router() {
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/portfolio" element={<Portfolio />} />
+                    <Route path="/:painting_Id" element={<PickedPainting />} />
                     <Route path="/admin" element={<AdminSignIn />} />
                     {localStorage[TOKEN_KEY] && <Route path="/admin/contact" element={<ContactPosts />} />}
                 </Routes>
