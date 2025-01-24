@@ -18,9 +18,9 @@ function NewPainting() {
             const imgData = await imgToString(myFile);
             const url = URL + "/paintings/cloud";
             const resp = await doApiMethod(url, "POST", { image: imgData });
-            console.log(resp.data);
+
             img_url = resp.data.secure_url;
-            console.log(img_url);
+
         } catch (err) {
             console.log(err);
         }
@@ -28,7 +28,7 @@ function NewPainting() {
 
     const creatNewPainting = async (_bodyData) => {
         try {
-            console.log(_bodyData);
+
             const url = URL + "/paintings";
             _bodyData.image_url = img_url;
             console.log(img_url)
@@ -47,7 +47,7 @@ function NewPainting() {
 
 
     const onSubForm = async (_bodyData) => {
-        console.log(_bodyData)
+
         await ApiCloudUpload();
         await creatNewPainting(_bodyData);
     }
