@@ -111,6 +111,9 @@ function Header() {
                                     <li className=' p-2 transition-transform  hover:scale-110'>
                                         <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
                                     </li>
+                                    <li className='p-2 transition-transform  hover:scale-110'>
+                                        <Link className='hover:text-black text-gray-500 ' to='/admin/addPost'>Add Painting</Link>
+                                    </li>
                                     <li className=' p-2 transition-transform  hover:scale-110' onClick={() => userSignOut()}>
                                         <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
                                     </li>
