@@ -1,6 +1,6 @@
 import Router from "../src/routes/Router";
 import { MyContext } from "../src/context/myContext";
-import { useUserData } from "./hooks/useUserData";
+import { useReRender } from "./hooks/useReRender";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
@@ -8,7 +8,7 @@ import './App.css';
 
 
 function App() {
-  const { render, setRender } = useUserData();
+  const { render, setRender } = useReRender();
 
 
   return (

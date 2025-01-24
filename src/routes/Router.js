@@ -5,6 +5,7 @@ import PaintShop from "../pages/PaintShop";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Portfolio from "../pages/Portfolio";
+import NewPainting from "../pages/NewPainting";
 import Header from '../components/Header';
 import AdminSignIn from '../components/admin/AdminSignIn';
 import ContactPosts from '../components/admin/ContactPosts';
@@ -30,7 +31,16 @@ function Router() {
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/:painting_Id" element={<PickedPainting />} />
                     <Route path="/admin" element={<AdminSignIn />} />
-                    {localStorage[TOKEN_KEY] && <Route path="/admin/contact" element={<ContactPosts />} />}
+
+                    {localStorage[TOKEN_KEY] &&
+
+                        <>
+                            <Route path="/admin/contact" element={<ContactPosts />} />
+                            <Route path="/admin/addPost" element={<NewPainting />} />
+                        </>
+
+
+                    }
                 </Routes>
             </BrowserRouter>
         </div>
