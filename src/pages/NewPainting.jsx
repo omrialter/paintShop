@@ -2,9 +2,11 @@ import React, { useRef } from 'react'
 import { useForm } from "react-hook-form";
 import { URL, doApiMethod, imgToString } from "../services/apiService";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function NewPainting() {
     const uploadRef = useRef();
+    const nav = useNavigate();
 
     let img_url;
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -35,6 +37,7 @@ function NewPainting() {
 
             if (data._id) {
                 toast.success("Painting added");
+                nav("/")
             }
         } catch (error) {
             console.log(error);
