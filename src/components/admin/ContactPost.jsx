@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
 import { URL, doApiMethod } from "../../services/apiService";
 import { MyContext } from "../../context/myContext";
-
 import { GrCheckboxSelected } from "react-icons/gr";
 import { ImCheckboxChecked } from "react-icons/im";
 
 
 function ContactPost({ date_created, id, name, email, subject, message, checked }) {
     const { render, setRender } = useContext(MyContext);
-
 
     const changeCheckBox = async (_id) => {
         try {
