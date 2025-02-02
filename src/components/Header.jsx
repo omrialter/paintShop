@@ -1,19 +1,19 @@
 import { React, useEffect, useState, useContext } from 'react';
-import { TOKEN_KEY, doApiGet, URL } from '../services/apiService';
+import { doApiGet, URL } from '../services/apiService';
 import { MyContext } from "../context/myContext";
 import { Link } from "react-router-dom";
 
 
 function Header() {
-    const { render, setRender } = useContext(MyContext);
+
+    const { user, logOut, render } = useContext(MyContext);
     const [count, setCount] = useState();
     const [nav, setNav] = useState(false);
 
 
     const userSignOut = () => {
         if (window.confirm("Are you sure you want to log out")) {
-            localStorage.removeItem(TOKEN_KEY);
-            setRender(!render);
+            logOut();
         }
     };
 
@@ -30,13 +30,12 @@ function Header() {
 
     useEffect(() => {
         countUnChecked()
-
     }, [render]);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
 
-            {localStorage[TOKEN_KEY] ?
+            {user ?
                 <div className={nav ? "text-center absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
                     <nav className='text-center '>
                         <ul className="flex flex-col pt-4 text-gray-800">
@@ -82,7 +81,7 @@ function Header() {
 
 
             {
-                localStorage[TOKEN_KEY] ?
+                user ?
                     <header className='relative'>
                         {nav ?
                             <div className='md:hidden h-[1px] bg-gray-300 mb-6'></div> : ""

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { URL, doApiMethod, TOKEN_KEY, } from "../../services/apiService";
+import { URL, doApiMethod } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { MyContext } from "../../context/myContext";
 
@@ -9,12 +9,11 @@ import { MyContext } from "../../context/myContext";
 function AdminSignIn() {
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const nav = useNavigate();
-    const { render, setRender } = useContext(MyContext);
+    const { loggIn } = useContext(MyContext);
 
 
     const onSubForm = (_bodyData) => {
         logIn(_bodyData);
-
     }
 
     const logIn = async (_bodyData) => {
@@ -23,9 +22,9 @@ function AdminSignIn() {
             const data = await doApiMethod(url, "POST", _bodyData);
             if (data.token) {
                 toast.success("Welcome");
-                localStorage.setItem(TOKEN_KEY, data.token);
-                nav("/admin/paintShop");
-                setRender(!render);
+                loggIn(data.token);
+                nav("/");
+
             }
         } catch (error) {
 
