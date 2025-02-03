@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { URL, TOKEN_KEY, doApiGet, doApiMethod } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
+
 function PickedPainting() {
+
     const nav = useNavigate();
     const { painting_Id } = useParams();
     const [painting, setPainting] = useState({});
@@ -47,14 +49,8 @@ function PickedPainting() {
     return (
         <div>
 
-            <div className="relative md:flex w-5/6 mx-auto">
-                {localStorage[TOKEN_KEY] &&
-                    <>
+            <div className="md:flex w-5/6 mx-auto">
 
-                        <button className="bg-red-950 p-2 text-white absolute right-0 top-0" onClick={() => deletePainting()} >Delete</button>
-                        <button className='bg-blue-950 p-2 text-white absolute right-0 top-12'>Update</button>
-                    </>
-                }
                 <h2 className='md:hidden text-5xl font-light mb-8'>{painting.name}</h2>
 
                 <div className="md:w-1/2 relative">
@@ -71,6 +67,14 @@ function PickedPainting() {
                     <div className='text-md text-gray-500 mb-4'>{painting.price}</div>
                     <button className='duration-200 text-center text-xs w-[200px] hover:text-white hover:bg-black
                  px-6 py-3 border-2 border-black'>ADD TO CART</button>
+                    <br></br>
+                    {localStorage[TOKEN_KEY] &&
+                        <>
+                            <button className="duration-200 p-2 my-1 w-[100px] border-2 border-black hover:text-white hover:bg-black " onClick={() => deletePainting()} >Delete</button>
+                            <br />
+                            <button className='duration-200 p-2 w-[100px] border-2 border-black hover:text-white hover:bg-black' onClick={() => nav("/admin/updatePost")}>Update</button>
+                        </>
+                    }
 
 
                 </div>

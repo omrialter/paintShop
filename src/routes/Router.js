@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Portfolio from "../pages/Portfolio";
 import NewPainting from "../pages/NewPainting";
+import UpdatePainting from "../pages/UpdatePainting";
 import Header from '../components/Header';
 import AdminSignIn from '../components/admin/AdminSignIn';
 import ContactPosts from '../components/admin/ContactPosts';
@@ -37,6 +38,7 @@ function Router() {
                         <>
                             <Route path="/admin/contact" element={<ContactPosts />} />
                             <Route path="/admin/addPost" element={<NewPainting />} />
+                            <Route path="/admin/updatePost" element={<UpdatePainting />} />
                         </>
 
 
