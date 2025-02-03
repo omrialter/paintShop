@@ -38,7 +38,7 @@ function Router() {
                         <>
                             <Route path="/admin/contact" element={<ContactPosts />} />
                             <Route path="/admin/addPost" element={<NewPainting />} />
-                            <Route path="/admin/updatePost" element={<UpdatePainting />} />
+                            <Route path="/admin/updatePost/:painting_Id" element={<UpdatePainting />} />
                         </>
 
 
