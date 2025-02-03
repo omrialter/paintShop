@@ -72,7 +72,7 @@ function PickedPainting() {
                         <>
                             <button className="duration-200 p-2 my-1 w-[100px] border-2 border-black hover:text-white hover:bg-black " onClick={() => deletePainting()} >Delete</button>
                             <br />
-                            <button className='duration-200 p-2 w-[100px] border-2 border-black hover:text-white hover:bg-black' onClick={() => nav("/admin/updatePost")}>Update</button>
+                            <button className='duration-200 p-2 w-[100px] border-2 border-black hover:text-white hover:bg-black' onClick={() => nav("/admin/updatePost/" + painting_Id)}>Update</button>
                         </>
                     }
 
