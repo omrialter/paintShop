@@ -1,18 +1,22 @@
 import React, { useContext } from 'react';
-import { URL, doApiMethod } from "../../services/apiService";
-import { MyContext } from "../../context/myContext";
+import { URL, doApiMethod } from "../services/apiService";
+import { MyContext } from "../context/myContext";
 import { GrCheckboxSelected } from "react-icons/gr";
 import { ImCheckboxChecked } from "react-icons/im";
 
 
 function ContactPost({ date_created, id, name, email, subject, message, checked }) {
-    const { render, setRender } = useContext(MyContext);
+    const { count, setCount } = useContext(MyContext);
 
     const changeCheckBox = async (_id) => {
         try {
             const url = URL + "/contacts/changeIsChecked/" + _id;
-            await doApiMethod(url, "PATCH");
-            setRender(!render);
+            const data = await doApiMethod(url, "PATCH");
+            if (data.checked === false) {
+                setCount(count + 1);
+            } else {
+                setCount(count - 1);
+            }
         } catch (error) {
             console.log(error);
         }

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { URL, doApiMethod } from "../../services/apiService";
+import { URL, doApiMethod } from "../services/apiService";
 import { toast } from "react-toastify";
-import { MyContext } from "../../context/myContext";
+import { MyContext } from "../context/myContext";
 
 
 function AdminSignIn() {

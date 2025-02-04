@@ -23,21 +23,22 @@ function UpdatePainting() {
         }
     }
 
+    const getPainting = async () => {
+        try {
+            const url = URL + "/paintings/OnePainting/" + painting_Id;
+            const data = await doApiGet(url);
+            setPainting(data);
+            // Set the default values for form inputs
+            setValue('name', data.name);
+            setValue('price', data.price);
+            setValue('desc', data.desc);
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed to load painting data");
+        }
+    };
+
     useEffect(() => {
-        const getPainting = async () => {
-            try {
-                const url = URL + "/paintings/OnePainting/" + painting_Id;
-                const data = await doApiGet(url);
-                setPainting(data);
-                // Set the default values for form inputs
-                setValue('name', data.name);
-                setValue('price', data.price);
-                setValue('desc', data.desc);
-            } catch (error) {
-                console.log(error);
-                toast.error("Failed to load painting data");
-            }
-        };
         getPainting();
     }, []);
 

@@ -17,9 +17,7 @@ export const doApiGet = async (_url) => {
         return resp.data;
     }
     catch (err) {
-        if (err.response && err.response.status === 401) {
-            localStorage.removeItem(TOKEN_KEY);
-        }
+        console.log(err);
         throw err;
     }
 }
@@ -37,9 +35,7 @@ export const doApiMethod = async (_url, _method, _body) => {
         return resp.data;
     }
     catch (err) {
-        if (err.response && err.response.status === 401) {
-            localStorage.removeItem(TOKEN_KEY);
-        }
+        console.log(err);
         throw err;
     }
 }

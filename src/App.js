@@ -1,6 +1,6 @@
 import Router from "../src/routes/Router";
 import { MyContext } from "../src/context/myContext";
-import { useReRender } from "./hooks/useReRender";
+import { useCountContactMsg } from "./hooks/useCountContactMsg";
 import { useAuth } from "./hooks/useAuth";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,13 +9,13 @@ import './App.css';
 
 
 function App() {
-  const { render, setRender } = useReRender();
+  const { count, setCount } = useCountContactMsg();
   const { user, loggIn, logOut } = useAuth();
 
 
   return (
     <MyContext.Provider value={{
-      render, setRender, user, loggIn, logOut
+      count, setCount, user, loggIn, logOut
     }}>
       <Router />
       <ToastContainer theme='colored' />

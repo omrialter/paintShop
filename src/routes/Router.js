@@ -5,11 +5,11 @@ import PaintShop from "../pages/PaintShop";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Portfolio from "../pages/Portfolio";
-import NewPainting from "../pages/NewPainting";
-import UpdatePainting from "../pages/UpdatePainting";
+import NewPainting from "../admin/NewPainting";
+import UpdatePainting from "../admin/UpdatePainting";
 import Header from '../components/Header';
-import AdminSignIn from '../components/admin/AdminSignIn';
-import ContactPosts from '../components/admin/ContactPosts';
+import AdminSignIn from '../admin/AdminSignIn';
+import ContactPosts from '../admin/ContactPosts';
 import PickedPainting from "../components/paintShop/PickedPainting";
 
 

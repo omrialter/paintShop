@@ -1,39 +1,30 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { URL, doApiGet, doApiMethod } from "../../services/apiService";
-import { MyContext } from "../../context/myContext";
+import { URL, doApiGet } from "../services/apiService";
+import { MyContext } from "../context/myContext";
 import ContactPost from "./ContactPost";
 
 function ContactPosts() {
     const [posts, setPosts] = useState([]);
-    const [count, setCount] = useState();
-    const { render, setRender } = useContext(MyContext);
+    const { count } = useContext(MyContext);
 
     const getContacts = async () => {
         try {
             const url = URL + "/contacts/getAll"
             const data = await doApiGet(url);
             setPosts(data);
+            console.log(data)
         } catch (error) {
             console.log(error);
         }
     }
 
-    const countUnChecked = async () => {
-        try {
-            const url = URL + "/contacts/count-unchecked"
-            const data = await doApiGet(url);
-            setCount(data.count)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
 
     useEffect(() => {
         getContacts()
-        countUnChecked()
-    }, [render]);
 
+    }, [count]);
 
 
     return (

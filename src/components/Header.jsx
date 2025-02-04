@@ -1,13 +1,13 @@
 import { React, useEffect, useState, useContext } from 'react';
-import { doApiGet, URL } from '../services/apiService';
+import { doApiGet, TOKEN_KEY, URL } from '../services/apiService';
 import { MyContext } from "../context/myContext";
 import { Link } from "react-router-dom";
 
 
 function Header() {
 
-    const { user, logOut, render } = useContext(MyContext);
-    const [count, setCount] = useState();
+    const { user, logOut, count } = useContext(MyContext);
+
     const [nav, setNav] = useState(false);
 
 
@@ -17,20 +17,11 @@ function Header() {
         }
     };
 
-    const countUnChecked = async () => {
-        try {
-            const url = URL + "/contacts/count-unchecked"
-            const data = await doApiGet(url);
-            setCount(data.count)
-        } catch (error) {
-            console.log(error);
-        }
-    }
+
 
 
     useEffect(() => {
-        countUnChecked()
-    }, [render]);
+    }, [user]);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
