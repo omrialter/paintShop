@@ -1,10 +1,10 @@
 import { React, useEffect, useState, useContext } from 'react';
-import { doApiGet, TOKEN_KEY, URL } from '../services/apiService';
 import { MyContext } from "../context/myContext";
 import { Link } from "react-router-dom";
 
 
 function Header() {
+
 
     const { user, logOut, count } = useContext(MyContext);
 

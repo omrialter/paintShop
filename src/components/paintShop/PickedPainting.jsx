@@ -25,6 +25,28 @@ function PickedPainting() {
 
     };
 
+    const cartButton = () => {
+        if (painting.available) {
+            // Retrieve the existing cart from local storage
+            let cart = JSON.parse(localStorage.getItem('paintings_to_cart')) || [];
+
+            // Check if the painting is already in the cart
+            const index = cart.findIndex(item => item._id === painting._id);
+
+            if (index === -1) {
+                cart.push(painting);
+            } else {
+                alert("Painting already in cart");
+
+            }
+
+            // Save the updated cart 
+            localStorage.setItem('paintings_to_cart', JSON.stringify(cart));
+        } else {
+            alert("this painting is not available");
+        }
+    };
+
     const deletePainting = async () => {
         try {
             const url = URL + "/paintings/" + painting_Id;
@@ -66,7 +88,7 @@ function PickedPainting() {
                     <div className='text-md text-gray-500 mb-2'>{painting.desc}</div>
                     <div className='text-md text-gray-500 mb-4'>{painting.price}</div>
                     <button className='duration-200 text-center text-xs w-[200px] hover:text-white hover:bg-black
-                 px-6 py-3 border-2 border-black'>ADD TO CART</button>
+                 px-6 py-3 border-2 border-black' onClick={() => cartButton()} >ADD TO CART</button>
                     <br></br>
                     {localStorage[TOKEN_KEY] &&
                         <>

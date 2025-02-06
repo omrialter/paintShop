@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { TOKEN_KEY } from '../services/apiService';
 import PaintShop from "../pages/PaintShop";
 import About from "../pages/About";
+import Cart from "../pages/Cart";
 import Contact from "../pages/Contact";
 import Portfolio from "../pages/Portfolio";
 import NewPainting from "../admin/NewPainting";
@@ -20,6 +21,7 @@ import PickedPainting from "../components/paintShop/PickedPainting";
 
 function Router() {
 
+
     return (
         <div className='lg:my-20 lg:mx-24 lg:border lg:border-gray-300'>
 
@@ -28,6 +30,7 @@ function Router() {
                 <Routes>
                     <Route path="/" element={<PaintShop />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/cart" element={<Cart />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/portfolio" element={<Portfolio />} />
                     <Route path="/:painting_Id" element={<PickedPainting />} />
