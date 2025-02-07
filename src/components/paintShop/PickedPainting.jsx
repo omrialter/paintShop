@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import { URL, TOKEN_KEY, doApiGet, doApiMethod } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../context/myContext";
+
 
 
 function PickedPainting() {
+    const { cart, updateCart } = useContext(MyContext);
 
     const nav = useNavigate();
     const { painting_Id } = useParams();
@@ -26,22 +29,16 @@ function PickedPainting() {
     };
 
     const cartButton = () => {
+        //checking if the painting is availale
         if (painting.available) {
-            // Retrieve the existing cart from local storage
-            let cart = JSON.parse(localStorage.getItem('paintings_to_cart')) || [];
-
-            // Check if the painting is already in the cart
+            // Checking if the painting is already in the cart
             const index = cart.findIndex(item => item._id === painting._id);
-
             if (index === -1) {
-                cart.push(painting);
+                const newCart = [...cart, painting];
+                updateCart(newCart);
             } else {
                 alert("Painting already in cart");
-
             }
-
-            // Save the updated cart 
-            localStorage.setItem('paintings_to_cart', JSON.stringify(cart));
         } else {
             alert("this painting is not available");
         }

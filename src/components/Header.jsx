@@ -1,13 +1,17 @@
 import { React, useEffect, useState, useContext } from 'react';
 import { MyContext } from "../context/myContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { TiShoppingCart } from "react-icons/ti";
 
 
 function Header() {
 
 
-    const { user, logOut, count } = useContext(MyContext);
+    const { user, logOut, count, showCart, cart, total } = useContext(MyContext);
 
+
+    const navi = useNavigate();
     const [nav, setNav] = useState(false);
 
 
@@ -21,7 +25,8 @@ function Header() {
 
 
     useEffect(() => {
-    }, [user]);
+        console.log(showCart);
+    }, [user, total]);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
@@ -117,6 +122,18 @@ function Header() {
                     </header>
                     :
                     <header className='relative'>
+
+                        {
+                            showCart ?
+                                <div onClick={() => navi('/cart')} className="cursor-pointer text-gray-200 fixed flex items-center justify-between rounded-3xl px-2 top-4 right-4 w-[250px] h-[40px] bg-black">
+                                    <div className="text-base" ><TiShoppingCart /></div>
+                                    <span className="text-sm">{cart.length} items </span>
+                                    <div className="font-semibold">${total}</div>
+                                </div>
+                                :
+                                ""
+                        }
+
                         {nav ?
                             <div className='md:hidden h-[1px] bg-gray-300 mb-6'></div> : ""
                         }
