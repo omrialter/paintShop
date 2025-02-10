@@ -25,59 +25,48 @@ function Header() {
 
 
     useEffect(() => {
-        console.log(showCart);
+
     }, [user, total]);
 
     return (
         <div className={`w-5/6 md:mb-14 mx-auto transition-all duration-200 ${nav ? 'pt-44' : 'pt-0'}`}>
 
+
+
+            <div className={showCart ? "z-20 pointer-events-auto fixed bottom-0 left-0 sm:left-auto w-full sm:w-[120px] sm:top-3 sm:right-3 transition-all duration-300 ease-in-out" : "fixed bottom-[-100%] w-full sm:w-[250px] left-0 sm:left-auto sm:top-3 sm:right-[-100%] transition-all duration-300 ease-in-out"}>
+                <div onClick={() => navi('/cart')} className=" cursor-pointer text-gray-300 hover:text-white items-center justify-between sm:rounded-full px-2  h-[60px] bg-black">
+                    <div className="flex justify-center py-1">
+                        <TiShoppingCart className="mt-1 me-1 text-base" />
+                        <div className="text-sm ms-1">{cart.length} items</div>
+                    </div>
+                    <div className="font-semibold text-center">${total}</div>
+                </div>
+            </div>
+
             {user ?
-                <div className={nav ? "text-center absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
-                    <nav className='text-center '>
-                        <ul className="flex flex-col pt-4 text-gray-800">
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
-                            </li>
+                <>
+                    <div className={nav ? "text-center absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
+                        <nav className='text-center '>
+                            <ul className="flex flex-col pt-4 text-gray-800">
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
+                                </li>
 
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
-                            </li>
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
-                            </li>
-                            <li className='pt-2' onClick={() => userSignOut()}>
-                                <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
-                            </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
+                                </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
+                                </li>
+                                <li className='pt-2' onClick={() => userSignOut()}>
+                                    <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
+                                </li>
 
-                        </ul>
-                    </nav>
+                            </ul>
+                        </nav>
 
-                </div>
-                :
+                    </div>
 
-                <div className={nav ? "absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
-                    <nav className='text-center '>
-                        <ul className="flex flex-col pt-4 text-gray-800">
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/about'>About</Link>
-                            </li>
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
-                            </li>
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/contact'>Contact</Link>
-                            </li>
-                            <li className='pt-2' onClick={() => setNav(!nav)}>
-                                <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            }
-
-
-            {
-                user ?
                     <header className='relative'>
                         {nav ?
                             <div className='md:hidden h-[1px] bg-gray-300 mb-6'></div> : ""
@@ -120,19 +109,31 @@ function Header() {
                         </div>
 
                     </header>
-                    :
-                    <header className='relative'>
 
-                        {
-                            showCart ?
-                                <div onClick={() => navi('/cart')} className="cursor-pointer text-gray-200 fixed flex items-center justify-between rounded-3xl px-2 top-4 right-4 w-[250px] h-[40px] bg-black">
-                                    <div className="text-base" ><TiShoppingCart /></div>
-                                    <span className="text-sm">{cart.length} items </span>
-                                    <div className="font-semibold">${total}</div>
-                                </div>
-                                :
-                                ""
-                        }
+                </>
+                :
+                <>
+
+                    <div className={nav ? "absolute top-0 left-1/2 transform -translate-x-1/2 w-1/2 " : "absolute top-[-100%] left-1/2 transform -translate-x-1/2 w-1/2"}>
+                        <nav className='text-center '>
+                            <ul className="flex flex-col pt-4 text-gray-800">
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/about'>About</Link>
+                                </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/'>Paint Shop</Link>
+                                </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/contact'>Contact</Link>
+                                </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/portfolio'>Porfolio</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <header className='relative'>
 
                         {nav ?
                             <div className='md:hidden h-[1px] bg-gray-300 mb-6'></div> : ""
@@ -169,7 +170,10 @@ function Header() {
                         </div>
 
                     </header>
+                </>
             }
+
+
         </div>
     )
 }

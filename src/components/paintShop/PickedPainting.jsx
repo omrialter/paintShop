@@ -20,7 +20,7 @@ function PickedPainting() {
             const url = URL + "/paintings/OnePainting/" + painting_Id;
             const data = await doApiGet(url);
             setPainting(data);
-            console.log(data);
+
 
         } catch (error) {
             console.log(error);
