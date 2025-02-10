@@ -5,7 +5,7 @@ function Painting({ name, price, available, image_url, id }) {
     return (
         <Link className="block lg:w-1/3" to={id}>
 
-            <div className="relative mt-4 px-4 w-full mx-auto text-center ">
+            <div className="relative mt-4  px-4 w-full mx-auto text-center ">
                 {(available === false) ?
                     <div className='bg-black p-2 text-white absolute right-0 top-0'>
                         SOLD

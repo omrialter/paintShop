@@ -3,9 +3,12 @@ import { useParams } from "react-router-dom";
 import { URL, TOKEN_KEY, doApiGet, doApiMethod } from "../../services/apiService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../context/myContext";
+
 
 
 function PickedPainting() {
+    const { cart, updateCart } = useContext(MyContext);
 
     const nav = useNavigate();
     const { painting_Id } = useParams();
@@ -17,12 +20,28 @@ function PickedPainting() {
             const url = URL + "/paintings/OnePainting/" + painting_Id;
             const data = await doApiGet(url);
             setPainting(data);
-            console.log(data);
+
 
         } catch (error) {
             console.log(error);
         }
 
+    };
+
+    const cartButton = () => {
+        //checking if the painting is availale
+        if (painting.available) {
+            // Checking if the painting is already in the cart
+            const index = cart.findIndex(item => item._id === painting._id);
+            if (index === -1) {
+                const newCart = [...cart, painting];
+                updateCart(newCart);
+            } else {
+                alert("Painting already in cart");
+            }
+        } else {
+            alert("this painting is not available");
+        }
     };
 
     const deletePainting = async () => {
@@ -66,7 +85,7 @@ function PickedPainting() {
                     <div className='text-md text-gray-500 mb-2'>{painting.desc}</div>
                     <div className='text-md text-gray-500 mb-4'>{painting.price}</div>
                     <button className='duration-200 text-center text-xs w-[200px] hover:text-white hover:bg-black
-                 px-6 py-3 border-2 border-black'>ADD TO CART</button>
+                 px-6 py-3 border-2 border-black' onClick={() => cartButton()} >ADD TO CART</button>
                     <br></br>
                     {localStorage[TOKEN_KEY] &&
                         <>
