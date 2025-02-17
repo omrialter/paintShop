@@ -27,23 +27,18 @@ function Cart() {
                 cart.map((item) => {
                     return (
                         <div className="w-4/6 mx-auto" key={item._id}>
-
-                            <div className='flex' >
-                                <div className="w-3/4 flex ">
-                                    <img className='h-[140px] w-[140px]' src={item.image_url} />
-                                    <div className="ms-2 me-3 text-lg font-semibold">{item.name} </div>
-                                    <div className="mt-1 text-sm">{item.desc}</div>
-                                </div>
-
-
-                                <div className="w-1/4 flex items-start justify-between">
-                                    <div className="ms-8 text-gray-600 text-lg">{item.price} </div>
-                                    <MdDelete className='cursor-pointer text-2xl' onClick={() => {
+                            <div className="text-lg" > {item.name}</div>
+                            <div className='relative flex' >
+                                <div className="w-2/3 flex items-start justify-between">
+                                    <img className='h-[64px] w-[64px] md:h-[140px] md:w-[140px]' src={item.image_url} />
+                                    <div className="ms-1 mt-1 text-sm">{item.desc}</div>
+                                    <div className="absolute bottom-0 right-0 md:top-0 md:right-12 text-gray-600 text-lg">{item.price}</div>
+                                    <MdDelete className='absolute top-0 right-0 cursor-pointer text-2xl' onClick={() => {
                                         removeFromCart(item._id);
                                     }} />
                                 </div>
                             </div>
-                            <hr className="my-2" />
+                            <hr className="my-3" />
                         </div>
                     )
                 })
