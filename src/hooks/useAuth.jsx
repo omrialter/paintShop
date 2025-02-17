@@ -8,12 +8,12 @@ export const useAuth = () => {
     const isTokenExpired = (token) => {
         try {
             const decodedToken = jwtDecode(token);
-            const currentTime = Date.now() / 1000; // Convert milliseconds to seconds
+            const currentTime = Date.now() / 1000;
 
             return decodedToken.exp < currentTime;
         } catch (error) {
             console.error("Failed to decode token:", error);
-            return true; // Assume the token is invalid/expired
+            return true;
         }
     };
 
@@ -25,7 +25,7 @@ export const useAuth = () => {
         if (token && !isTokenExpired(token)) {
             setUser({ token });
         } else if (token) {
-            logOut(); // Automatically log out if the token is expired
+            logOut();
         }
     }, []);
 
