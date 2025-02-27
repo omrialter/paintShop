@@ -30,7 +30,7 @@ function PaintShop() {
 
     return (
 
-        <div className='lg:flex lg:flex-wrap w-5/6 mx-auto'>
+        <div className='lg:flex lg:flex-wrap lg:justify-between w-5/6 mx-auto'>
             {
                 posts.map((item) => {
                     return (

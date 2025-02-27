@@ -24,7 +24,6 @@ function Contact() {
 
     const onSubForm = (_bodyData) => {
         doContactPost(_bodyData);
-
     }
 
 

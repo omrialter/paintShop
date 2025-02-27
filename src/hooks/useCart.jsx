@@ -12,7 +12,7 @@ export const useCart = () => {
     let total = cart.reduce((acc, item) => {
         const price = parseFloat(item.price.replace('$', ''));
         return acc + price;
-    }, 0).toLocaleString('en-US');
+    }, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     const updateCart = (newCart) => {
         localStorage.setItem('paintings_to_cart', JSON.stringify(newCart));
