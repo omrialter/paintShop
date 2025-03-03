@@ -51,3 +51,8 @@ export const imgToString = async (_file) => {
         })
     })
 }
+
+
+
+
+

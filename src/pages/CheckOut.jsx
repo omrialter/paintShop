@@ -3,6 +3,7 @@ import { MyContext } from "../context/myContext";
 import { useForm } from "react-hook-form";
 import { Countries } from '../services/Countries';
 import { USA_States } from '../services/States';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 function CheckOut() {
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -27,6 +28,9 @@ function CheckOut() {
         paintings: cart.map((item) => { return item._id })
     });
 
+    useEffect(() => {
+
+    }, [isEmailSubmited, isAddressSubmited])
 
     const onSubmit1 = data => {
 
@@ -62,16 +66,15 @@ function CheckOut() {
         setIsAddressSubmited(true)
     }
 
-
     const removeFromCart = (itemId) => {
-
         const newCart = cart.filter(item => item._id !== itemId);
         updateCart(newCart);
     };
 
-    useEffect(() => {
-
-    }, [isEmailSubmited, isAddressSubmited])
+    const initialOptions = {
+        clientId: "AXj5SNtdiq_kL3gTzFya-u6blU4riM66cvG9YOCAzTP10g5B9AVvSNZPhFcCyNi5k4RdWCudHJz1_ZgV",
+        // Add other options as needed
+    };
 
     return (
         <div className='min-h-[150vh]' style={{ backgroundColor: 'rgb(246, 246, 246)' }}>
@@ -327,11 +330,11 @@ function CheckOut() {
                         {
                             (isEmailSubmited && isAddressSubmited) &&
                             <div className='p-16 text-center '>
-                                <h2 className='text-3xl'>COMING SOON!! </h2>
-                                <br></br>
-                                <button className='border border-black p-4' onClick={() => {
-                                    console.log(checkoutObj);
-                                }}>Console Log Data</button>
+                                <div className="App">
+                                    <PayPalScriptProvider options={initialOptions}>
+                                        <PayPalButtons />
+                                    </PayPalScriptProvider>
+                                </div>
                             </div>
                         }
 
@@ -358,11 +361,12 @@ function CheckOut() {
                                         <div>{item.name}</div>
                                         <div className='text-sm'>{item.desc}</div>
                                     </div>
-                                    <div className="w-1/3 flex justify-end "> {/* Changed from items-end to justify-end */}
+                                    <div className="w-1/3 flex justify-end ">
                                         <div className="me-1">{item.price}</div>
                                     </div>
                                 </div>
                                 <div className="text-xs flex justify-end text-gray-500 cursor-pointer underline" onClick={() => removeFromCart(item._id)}>Remove</div>
+                                <hr className="my-2"></hr>
                             </div>
                         ))
                     }
