@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Painting({ name, price, available, image_url, id }) {
     return (
-        <Link className="block lg:w-[32%]" to={id}>
+        <Link className="block lg:w-[32%]" to={`/picked/${id}`}>
 
             <div className="relative mt-4 w-full mx-auto text-center hover:opacity-80 duration-300 ">
 

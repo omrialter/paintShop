@@ -6,6 +6,7 @@ import About from "../pages/About";
 import Cart from "../pages/Cart";
 import CheckOut from "../pages/CheckOut";
 import Contact from "../pages/Contact";
+import CompleteOrder from "../pages/CompleteOrder";
 import Portfolio from "../pages/Portfolio";
 import NewPainting from "../admin/NewPainting";
 import UpdatePainting from "../admin/UpdatePainting";
@@ -24,11 +25,12 @@ function Layout() {
             <Routes>
                 <Route path="/" element={<PaintShop />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/completeOrder" element={<CompleteOrder />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<CheckOut />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/portfolio" element={<Portfolio />} />
-                <Route path="/:painting_Id" element={<PickedPainting />} />
+                <Route path="/picked/:painting_Id" element={<PickedPainting />} />
                 <Route path="/admin" element={<AdminSignIn />} />
                 {localStorage[TOKEN_KEY] && <>
                     <Route path="/admin/contact" element={<ContactPosts />} />
