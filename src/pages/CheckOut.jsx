@@ -3,6 +3,10 @@ import { MyContext } from "../context/myContext";
 import { useForm } from "react-hook-form";
 import { Countries } from '../services/Countries';
 import { USA_States } from '../services/States';
+import { URL, doApiMethod, doApiGet } from "../services/apiService";
+import { toast } from "react-toastify";
+
+
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 function CheckOut() {
@@ -70,6 +74,22 @@ function CheckOut() {
         const newCart = cart.filter(item => item._id !== itemId);
         updateCart(newCart);
     };
+
+    const doCreateOrder = async () => {
+        try {
+            const url = URL + "/payments/pay";
+
+            const data = await doApiGet(url);
+            if (data) {
+                console.log(data);
+                window.location.href = data;
+            }
+        } catch (error) {
+            console.error('Error creating order:', error);
+            toast.error("Error processing payment.");
+        }
+    }
+
 
     const initialOptions = {
         clientId: "AXj5SNtdiq_kL3gTzFya-u6blU4riM66cvG9YOCAzTP10g5B9AVvSNZPhFcCyNi5k4RdWCudHJz1_ZgV",
@@ -330,11 +350,14 @@ function CheckOut() {
                         {
                             (isEmailSubmited && isAddressSubmited) &&
                             <div className='p-16 text-center '>
-                                <div className="App">
+                                <button onClick={() => {
+                                    doCreateOrder();
+                                }} className='p-4 text-xl border border-black'>Pay now</button>
+                                {/* <div className="App">
                                     <PayPalScriptProvider options={initialOptions}>
                                         <PayPalButtons />
                                     </PayPalScriptProvider>
-                                </div>
+                                </div> */}
                             </div>
                         }
 
