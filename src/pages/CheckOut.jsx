@@ -355,7 +355,7 @@ function CheckOut() {
                     </div>
                     {/* div 3 */}
                     <div className="mt-4 p-3 bg-white  rounded border border-gray-300" >
-                        <div className='text-2xl text-gray-500'>Payment & Discounts</div>
+                        <div className='text-2xl text-gray-500'>Payment</div>
                         {
                             (isEmailSubmited && isAddressSubmited) &&
                             <div className='p-16 text-center '>
@@ -365,10 +365,6 @@ function CheckOut() {
                             </div>
                         }
 
-                    </div>
-                    {/* div 4 */}
-                    <div className="mt-4 p-3 bg-white rounded border border-gray-300" >
-                        <div className='text-2xl text-gray-500'>Review & Purchase</div>
                     </div>
                 </div>
 
