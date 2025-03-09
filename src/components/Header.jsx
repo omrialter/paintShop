@@ -10,6 +10,8 @@ function Header() {
     const { user, logOut, count, showCart, cart, total } = useContext(MyContext);
     const location = useLocation();
 
+    const totalPrice = total.toLocaleString('en-US');
+
     const navi = useNavigate();
     const [nav, setNav] = useState(false);
 
@@ -32,7 +34,7 @@ function Header() {
 
 
 
-            <div className={showCart && !['/checkout', '/cart'].includes(location.pathname) ? "z-20 pointer-events-auto fixed bottom-0 left-0 sm:left-auto w-full sm:w-[120px] sm:top-3 sm:right-3 transition-all duration-300 ease-in-out" : "fixed bottom-[-100%] w-full sm:w-[250px] left-0 sm:left-auto sm:top-3 sm:right-[-100%] transition-all duration-300 ease-in-out"}>
+            <div className={showCart && !['/checkout', '/cart', '/completeOrder'].includes(location.pathname) ? "z-20 pointer-events-auto fixed bottom-0 left-0 sm:left-auto w-full sm:w-[120px] sm:top-3 sm:right-3 transition-all duration-300 ease-in-out" : "fixed bottom-[-100%] w-full sm:w-[250px] left-0 sm:left-auto sm:top-3 sm:right-[-100%] transition-all duration-300 ease-in-out"}>
                 <div onClick={() => navi('/cart')} className=" cursor-pointer text-gray-300 hover:text-white items-center justify-between sm:rounded-full px-2  h-[60px] bg-black">
                     <div className="flex justify-center py-1">
                         <TiShoppingCart className="mt-1 me-1 text-base" />

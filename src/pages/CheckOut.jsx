@@ -3,13 +3,13 @@ import { MyContext } from "../context/myContext";
 import { useForm } from "react-hook-form";
 import { Countries } from '../services/Countries';
 import { USA_States } from '../services/States';
-import { URL, doApiMethod, doApiGet } from "../services/apiService";
+import { URL, doApiMethod } from "../services/apiService";
 import { toast } from "react-toastify";
 
 
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 function CheckOut() {
+
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
     const { cart, total, updateCart } = useContext(MyContext);
@@ -33,28 +33,21 @@ function CheckOut() {
     });
 
     useEffect(() => {
+        console.log(cart);
+        console.log(total);
+        console.log(checkoutObj);
 
     }, [isEmailSubmited, isAddressSubmited])
 
-    const onSubmit1 = data => {
 
+    const onSubmit1 = data => {
         setCheckoutObj(prevState => ({
             ...prevState,
             email: data.email
         }));
         setIsEmailSubmited(true);
-
     };
-
-    const validateEmail = (value) => {
-        // Regular expression to validate email format
-        const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-        return regex.test(value) || "Enter a valid email address";
-    };
-
-
     const onSubmit2 = (data2) => {
-
 
         setCheckoutObj(prevState => ({
             ...prevState,
@@ -70,6 +63,14 @@ function CheckOut() {
         setIsAddressSubmited(true)
     }
 
+    const validateEmail = (value) => {
+        // Regular expression to validate email format
+        const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+        return regex.test(value) || "Enter a valid email address";
+    };
+
+
+
     const removeFromCart = (itemId) => {
         const newCart = cart.filter(item => item._id !== itemId);
         updateCart(newCart);
@@ -79,7 +80,18 @@ function CheckOut() {
         try {
             const url = URL + "/payments/pay";
 
-            const data = await doApiGet(url);
+            const cartDetails = {
+                total: total,
+                items: cart.map(item => ({
+                    name: item.name,
+                    description: item.desc,
+                    quantity: 1,
+                    value: item.price,
+
+                }))
+            };
+            localStorage.setItem('checkoutData', JSON.stringify(checkoutObj));
+            const data = await doApiMethod(url, "POST", cartDetails);
             if (data) {
                 console.log(data);
                 window.location.href = data;
@@ -88,13 +100,10 @@ function CheckOut() {
             console.error('Error creating order:', error);
             toast.error("Error processing payment.");
         }
-    }
-
-
-    const initialOptions = {
-        clientId: "AXj5SNtdiq_kL3gTzFya-u6blU4riM66cvG9YOCAzTP10g5B9AVvSNZPhFcCyNi5k4RdWCudHJz1_ZgV",
-        // Add other options as needed
     };
+
+
+
 
     return (
         <div className='min-h-[150vh]' style={{ backgroundColor: 'rgb(246, 246, 246)' }}>
@@ -352,12 +361,7 @@ function CheckOut() {
                             <div className='p-16 text-center '>
                                 <button onClick={() => {
                                     doCreateOrder();
-                                }} className='p-4 text-xl border border-black'>Pay now</button>
-                                {/* <div className="App">
-                                    <PayPalScriptProvider options={initialOptions}>
-                                        <PayPalButtons />
-                                    </PayPalScriptProvider>
-                                </div> */}
+                                }} className='p-4 text-xl border border-black' >Pay now</button>
                             </div>
                         }
 
@@ -385,7 +389,7 @@ function CheckOut() {
                                         <div className='text-sm'>{item.desc}</div>
                                     </div>
                                     <div className="w-1/3 flex justify-end ">
-                                        <div className="me-1">{item.price}</div>
+                                        <div className="me-1">${item.price}</div>
                                     </div>
                                 </div>
                                 <div className="text-xs flex justify-end text-gray-500 cursor-pointer underline" onClick={() => removeFromCart(item._id)}>Remove</div>

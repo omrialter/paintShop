@@ -16,7 +16,12 @@ function Cart() {
 
 
     useEffect(() => {
+        console.log(cart);
+        const ids3 = {
+            "ids": cart.map(item => item._id)
 
+        }
+        console.log(ids3);
     }, [cart])
 
     return (
@@ -34,7 +39,7 @@ function Cart() {
                                 <div className="w-2/3 flex items-start justify-between">
                                     <img className='h-[64px] w-[64px] md:h-[140px] md:w-[140px]' src={item.image_url} />
                                     <div className="ms-1 mt-1 text-sm">{item.desc}</div>
-                                    <div className="absolute bottom-0 right-0 md:top-0 md:right-14 text-gray-600 text-lg">{item.price}</div>
+                                    <div className="absolute bottom-0 right-0 md:top-0 md:right-14 text-gray-600 text-lg">${item.price}</div>
                                     <FiX className='absolute top-0 right-0 cursor-pointer text-3xl hover:bg-gray-600 hover:text-white rounded-full' onClick={() => {
                                         removeFromCart(item._id);
                                     }} />

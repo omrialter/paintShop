@@ -10,9 +10,10 @@ export const useCart = () => {
     const [cart, setCart] = useState(cartt);
 
     let total = cart.reduce((acc, item) => {
-        const price = parseFloat(item.price.replace('$', ''));
-        return acc + price;
-    }, 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const price = parseFloat(item.price);
+        const quantity = item.quantity || 1; // Handle cases if quantity is not explicitly set
+        return acc + price * quantity;
+    }, 0).toFixed(2);
 
     const updateCart = (newCart) => {
         localStorage.setItem('paintings_to_cart', JSON.stringify(newCart));
