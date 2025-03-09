@@ -14,7 +14,7 @@ function Painting({ name, price, available, image_url, id }) {
 
                 <img className='mx-auto max-w-full object-contain' src={image_url} alt={name} />
                 <p className='text-gray-700'>{name}</p>
-                <p className='text-gray-700' >{price}</p>
+                <p className='text-gray-700' >${price}</p>
                 <br />
                 <hr className='lg:hidden' />
 
