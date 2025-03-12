@@ -8,6 +8,7 @@ function PurchasePosts() {
     const [posts, setPosts] = useState([]);
     const { countPurchases } = useContext(MyContext);
 
+
     const getPurchases = async () => {
         try {
             const url = URL + "/purchases/getAll"
@@ -53,6 +54,8 @@ function PurchasePosts() {
                                 address={item.address}
                                 zip_code={item.zip_code}
                                 phone_number={item.phone_number}
+                                paintings={item.paintings}
+
                             />
                         )
                     })

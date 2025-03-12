@@ -36,6 +36,7 @@ function CheckOut() {
     });
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         console.log(cart);
         console.log(total);
         console.log(checkoutObj);

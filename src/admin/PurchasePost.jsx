@@ -5,7 +5,7 @@ import { GrCheckboxSelected } from "react-icons/gr";
 import { ImCheckboxChecked } from "react-icons/im";
 
 
-function PurchasePost({ date_created, id, first_name, last_name, email, checked, country, state, city, address, zip_code, phone_number }) {
+function PurchasePost({ date_created, id, first_name, last_name, email, checked, country, state, city, address, zip_code, phone_number, paintings }) {
     const { countPurchases, setCountPurchases } = useContext(MyContext);
 
     const changeCheckBox = async (_id) => {
@@ -46,6 +46,19 @@ function PurchasePost({ date_created, id, first_name, last_name, email, checked,
             <div><span className='font-bold'>Address:</span> {address}</div>
             <div><span className='font-bold'>ZIP_CODE:</span> {zip_code}</div>
             <div><span className='font-bold'>Phone_number:</span> {phone_number}</div>
+            <div>
+                <span className='font-bold'>Purchased Paintings:</span>
+                <ul className="list-disc pl-5 space-y-2">
+                    {paintings?.map((painting) => (
+                        <li key={painting._id} className="flex items-center gap-2">
+                            <img src={painting.image_url} alt={painting.name} className="w-10 h-10 object-cover rounded" />
+                            <span>{painting.name}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+
 
 
 

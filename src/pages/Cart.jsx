@@ -16,12 +16,9 @@ function Cart() {
 
 
     useEffect(() => {
-        console.log(cart);
-        const ids3 = {
-            "ids": cart.map(item => item._id)
 
-        }
-        console.log(ids3);
+        console.log(cart);
+
     }, [cart])
 
     return (
