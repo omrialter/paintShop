@@ -17,7 +17,7 @@ function Contact() {
                 toast.success("Thank you for contact me I will answer you as fast as I can");
             }
         } catch (error) {
-
+            console.log(error);
         }
     }
 

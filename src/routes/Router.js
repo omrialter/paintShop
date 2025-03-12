@@ -12,6 +12,7 @@ import NewPainting from "../admin/NewPainting";
 import UpdatePainting from "../admin/UpdatePainting";
 import AdminSignIn from '../admin/AdminSignIn';
 import ContactPosts from '../admin/ContactPosts';
+import PurchasesPosts from '../admin/PurchasePosts';
 import PickedPainting from "../components/paintShop/PickedPainting";
 import { TOKEN_KEY } from '../services/apiService';
 
@@ -34,6 +35,7 @@ function Layout() {
                 <Route path="/admin" element={<AdminSignIn />} />
                 {localStorage[TOKEN_KEY] && <>
                     <Route path="/admin/contact" element={<ContactPosts />} />
+                    <Route path="/admin/purchases" element={<PurchasesPosts />} />
                     <Route path="/admin/addPost" element={<NewPainting />} />
                     <Route path="/admin/updatePost/:painting_Id" element={<UpdatePainting />} />
                 </>}

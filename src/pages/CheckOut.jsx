@@ -5,6 +5,9 @@ import { Countries } from '../services/Countries';
 import { USA_States } from '../services/States';
 import { URL, doApiMethod } from "../services/apiService";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom"
+
+
 
 
 
@@ -15,7 +18,7 @@ function CheckOut() {
     const { cart, total, updateCart } = useContext(MyContext);
 
     const [selectedCountry, setSelectedCountry] = useState('Israel');
-    const [selectedState, setSelectedState] = useState('NY');
+    const [selectedState, setSelectedState] = useState("");
 
     const handleCountryChange = (event) => {
         setSelectedCountry(event.target.value);
@@ -54,7 +57,7 @@ function CheckOut() {
             first_name: data2.first_name,
             last_name: data2.last_name,
             address: data2.address,
-            ciry: data2.city,
+            city: data2.city,
             state: selectedState,
             country: selectedCountry,
             zip_code: data2.zip_code,
@@ -102,6 +105,25 @@ function CheckOut() {
         }
     };
 
+    const [scrollY, setScrollY] = useState(0);
+    const [targetY, setTargetY] = useState(30);
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrollY(window.scrollY);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const smoothScroll = setInterval(() => {
+            setTargetY((prevY) => prevY + (scrollY - prevY) * 0.1);
+        }, 30);
+
+        return () => clearInterval(smoothScroll);
+    }, [scrollY]);
+
 
 
 
@@ -110,18 +132,18 @@ function CheckOut() {
 
             <div className="fixed z-10 top-0 w-full bg-white shadow-sm h-[80px]">
                 <div className='py-5 mb-8 w-7/12 mx-auto '>
-                    <h2 className='font-bold text-3xl text-gray-800'> Omri Alter</h2>
+                    <Link to="/"><h2 className='font-bold text-3xl text-gray-800'> Omri Alter</h2></Link>
                 </div>
             </div>
 
 
-            <div className="mt-20 pt-4 w-7/12 mx-auto">
+            <div className="md:relative mt-20 pt-4 w-10/12 md:w-8/12 lg:w-7/12 mx-auto md:flex md:justify-between">
 
                 {/* Left div */}
 
-                <div className="md:w-[49%]">
+                <div className="md:w-[48%]">
 
-                    {/* first div */}
+                    {/* div 1 */}
                     <div className="relative mt-4 p-3 bg-white rounded border border-gray-300">
 
                         <h2 className='text-xl font-medium '>Your Email</h2>
@@ -173,7 +195,8 @@ function CheckOut() {
                                         <div className="text-gray-500">
                                             <div>{checkoutObj.phone_number}</div>
                                             <div>{checkoutObj.address}</div>
-                                            <div>{checkoutObj.city} {checkoutObj.zip_code}</div>
+                                            <div>{checkoutObj.city} </div>
+                                            <div>{checkoutObj.zip_code}</div>
                                             <div>{checkoutObj.country}</div>
                                         </div>
                                     </div>
@@ -354,15 +377,16 @@ function CheckOut() {
                         })()}
                     </div>
                     {/* div 3 */}
-                    <div className="mt-4 p-3 bg-white  rounded border border-gray-300" >
+                    <div className="mt-4 p-3 bg-white  rounded border border-gray-300 " >
                         <div className='text-2xl text-gray-500'>Payment</div>
+
                         {
-                            (isEmailSubmited && isAddressSubmited) &&
-                            <div className='p-16 text-center '>
-                                <button onClick={() => {
-                                    doCreateOrder();
-                                }} className='p-4 text-xl border border-black' >Pay now</button>
-                            </div>
+                            isEmailSubmited && isAddressSubmited && (
+                                // <PayPalButton createOrder={doCreateOrder} />
+                                <img className='cursor-pointer block mx-auto mt-3 transition duration-100 hover:grayscale-[20%]' onClick={() => {
+                                    doCreateOrder()
+                                }} src="/paypal_button.png" alt="paypal button" />
+                            )
                         }
 
                     </div>
@@ -370,7 +394,15 @@ function CheckOut() {
 
                 {/* Right div */}
 
-                <div className="md:w-[29%] my-8 p-4 rounded border border-gray-300 bg-white md:fixed md:top-20 md:right-72">
+                <div className="md:w-[48%] mt-4 p-4 rounded border border-gray-300 bg-white self-start"
+                    style={{
+                        position: "sticky",
+                        top: `${targetY}px`,
+                        right: "0%", // Adjust as needed
+                        // Keep width fixed
+                        transition: "transform 0.2s ease-out"
+                    }}
+                >
                     <div className="text-lg font-medium">Order summary</div>
                     <br />
                     {
