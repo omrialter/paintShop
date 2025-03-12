@@ -7,10 +7,9 @@ import { TiShoppingCart } from "react-icons/ti";
 function Header() {
 
 
-    const { user, logOut, count, showCart, cart, total } = useContext(MyContext);
+    const { user, logOut, count, showCart, cart, total, countPurchases } = useContext(MyContext);
     const location = useLocation();
 
-    const totalPrice = total.toLocaleString('en-US');
 
     const navi = useNavigate();
     const [nav, setNav] = useState(false);
@@ -59,6 +58,9 @@ function Header() {
                                 <li className='pt-2' onClick={() => setNav(!nav)}>
                                     <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
                                 </li>
+                                <li className='pt-2' onClick={() => setNav(!nav)}>
+                                    <Link className='hover:text-black text-gray-500' to='/admin/purchases'>{(countPurchases > 0) ? <div>Purchases({countPurchases})</div> : "Purchases"}</Link>
+                                </li>
                                 <li className='pt-2' onClick={() => userSignOut()}>
                                     <Link className='hover:text-black text-gray-500' to='/'>Log out</Link>
                                 </li>
@@ -95,6 +97,9 @@ function Header() {
                                     </li>
                                     <li className=' p-2 transition-transform  hover:scale-110'>
                                         <Link className='hover:text-black text-gray-500' to='/admin/contact'>{(count > 0) ? <div>Contacts({count})</div> : "Contacts"}</Link>
+                                    </li>
+                                    <li className=' p-2 transition-transform  hover:scale-110'>
+                                        <Link className='hover:text-black text-gray-500' to='/admin/purchases'>{(countPurchases > 0) ? <div>Purchases({countPurchases})</div> : "Purchases"}</Link>
                                     </li>
                                     <li className='p-2 transition-transform  hover:scale-110'>
                                         <Link className='hover:text-black text-gray-500 ' to='/admin/addPost'>Add Painting</Link>
