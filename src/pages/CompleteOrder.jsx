@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MyContext } from "../context/myContext";
 import { useLocation } from 'react-router-dom';
 import { URL, doApiGet, doApiMethod } from "../services/apiService";
@@ -9,30 +9,32 @@ function CompleteOrder() {
 
     const location = useLocation();
     const { cart, updateCart } = useContext(MyContext);
-    const shippingData = JSON.parse(localStorage.getItem('checkoutData'));
-
+    const [completObg, setCompletObg] = useState(cart);
+    const [shippingData, setShippingData] = useState(JSON.parse(localStorage.getItem('checkoutData')));
 
     useEffect(() => {
-        console.log(shippingData);
-        const params = new URLSearchParams(location.search);
-        const token = params.get('token');
-        if (token) {
-            console.log("we found the token and we call the complereOrder function")
-            completeOrder(token);
-            makeAPurchase(shippingData);
 
-        } else {
-            console.log("THERE IS NO TOKEN!")
+        const asyncAlgorithem = async () => {
+
+            console.log(shippingData);
+            const params = new URLSearchParams(location.search);
+            const token = params.get('token');
+            if (token) {
+                console.log("we found the token and we call the complereOrder function")
+                await completeOrder(token);
+                await makeAPurchase(shippingData);
+
+                updateCart([]);
+                localStorage.setItem('checkoutData', JSON.stringify({}));
+
+            } else {
+                console.log("THERE IS NO TOKEN!")
+            }
         }
 
-        return () => {
-            updateCart([]);
-            localStorage.setItem('checkoutData', JSON.stringify({}));
-        };
-
-
-
+        asyncAlgorithem()
     }, []);
+
 
     const makeAPurchase = async (body_data) => {
         try {
@@ -46,7 +48,6 @@ function CompleteOrder() {
     }
 
 
-
     const completeOrder = async (token) => {
         try {
             const response = await doApiGet(`${URL}/payments/completeOrder?token=${token}`);
@@ -55,6 +56,7 @@ function CompleteOrder() {
                 const all_Ids = { "ids": cart.map(item => item._id) };
                 const url = URL + "/paintings/updateAvailability";
                 await doApiMethod(url, "PATCH", all_Ids);
+
 
             }
 
@@ -97,7 +99,7 @@ function CompleteOrder() {
                 <div className='md:w-[49%] border border-gray-300 rounded-lg p-6 bg-white shadow-md mt-6 md:mt-0'>
                     <h3 className='text-xl font-semibold text-gray-800 mb-4'>🎨 Paintings You Purchased</h3>
 
-                    {cart.map((item) => (
+                    {completObg.map((item) => (
                         <div key={item._id} className="mt-4 flex items-center border-b pb-4">
                             <img className='h-20 w-20 rounded-md shadow-sm' src={item.image_url} alt={item.name} />
                             <div className="ml-4">
