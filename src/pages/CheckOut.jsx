@@ -23,7 +23,6 @@ function CheckOut() {
         total: total,
         paintings: cart.map((item) => { return item._id })
     });
-
     const handleCountryChange = (event) => { setSelectedCountry(event.target.value); };
     const handleStateChange = (event) => { setSelectedState(event.target.value); };
 
@@ -44,8 +43,8 @@ function CheckOut() {
         }));
         setIsEmailSubmited(true);
     };
-    const onSubmit2 = (data2) => {
 
+    const onSubmit2 = (data2) => {
         setCheckoutObj(prevState => ({
             ...prevState,
             first_name: data2.first_name,
