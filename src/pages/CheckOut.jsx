@@ -10,35 +10,27 @@ import { Link } from "react-router-dom"
 
 
 
-
 function CheckOut() {
 
+
     const { register, handleSubmit, formState: { errors }, } = useForm();
-
     const { cart, total, updateCart } = useContext(MyContext);
-
     const [selectedCountry, setSelectedCountry] = useState('Israel');
     const [selectedState, setSelectedState] = useState("");
-
-    const handleCountryChange = (event) => {
-        setSelectedCountry(event.target.value);
-    };
-    const handleStateChange = (event) => {
-        setSelectedState(event.target.value);
-    };
-
     const [isEmailSubmited, setIsEmailSubmited] = useState(false);
     const [isAddressSubmited, setIsAddressSubmited] = useState(false);
-
     const [checkoutObj, setCheckoutObj] = useState({
         total: total,
         paintings: cart.map((item) => { return item._id })
     });
+    const handleCountryChange = (event) => { setSelectedCountry(event.target.value); };
+    const handleStateChange = (event) => { setSelectedState(event.target.value); };
+
+
 
     useEffect(() => {
         window.scrollTo(0, 0);
         console.log(cart);
-        console.log(total);
         console.log(checkoutObj);
 
     }, [isEmailSubmited, isAddressSubmited])
@@ -51,8 +43,8 @@ function CheckOut() {
         }));
         setIsEmailSubmited(true);
     };
-    const onSubmit2 = (data2) => {
 
+    const onSubmit2 = (data2) => {
         setCheckoutObj(prevState => ({
             ...prevState,
             first_name: data2.first_name,
@@ -80,7 +72,7 @@ function CheckOut() {
         updateCart(newCart);
     };
 
-    const doCreateOrder = async () => {
+    const CreateOrder = async () => {
         try {
             const url = URL + "/payments/pay";
 
@@ -383,10 +375,31 @@ function CheckOut() {
 
                         {
                             isEmailSubmited && isAddressSubmited && (
-                                // <PayPalButton createOrder={doCreateOrder} />
-                                <img className='cursor-pointer block mx-auto mt-3 transition duration-100 hover:grayscale-[20%]' onClick={() => {
-                                    doCreateOrder()
-                                }} src="/paypal_button.png" alt="paypal button" />
+                                <div className='flex items-center justify-center'>
+
+                                    <button
+                                        className="mt-2 w-full max-w-xs flex items-center justify-center gap-1 py-3 px-6 rounded-md 
+                                        bg-[#ffc439] hover:bg-[#ffb600] transition-all 
+                                        shadow-md focus:outline-none focus:ring-2 focus:ring-[#003087]"
+                                        onClick={() => {
+                                            CreateOrder()
+                                        }}
+                                    >
+                                        <div className="relative w-4 h-6 flex items-center">
+
+                                            <span className="absolute top-0 left-[2px] text-[#009cde] font-bold text-2xl">P</span>
+
+                                            <span className="relative text-[#003087] font-bold text-2xl z-10">P</span>
+                                        </div>
+                                        <span className="text-xl font-semibold leading-none flex items-center">
+                                            <span className="text-[#003087]">Pay</span>
+                                            <span className="text-[#009cde]">Pal</span>
+                                        </span>
+                                        <span>Checkout</span>
+                                    </button>
+                                </div>
+
+
                             )
                         }
 
