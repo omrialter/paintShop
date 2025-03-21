@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { useForm } from "react-hook-form";
 import { URL, doApiMethod, imgToString } from "../services/apiService";
 import { toast } from "react-toastify";
@@ -8,9 +8,24 @@ function NewPainting() {
     const uploadRef = useRef();
     const nav = useNavigate();
 
+
     let img_url;
     const { register, handleSubmit, formState: { errors }, } = useForm();
 
+    const handleImageChange = async (event) => {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            let url = await imgToString(selectedFile)
+            setImagePreview(url);
+        } else {
+            setImagePreview(null);
+        }
+    };
+    const [imagePreview, setImagePreview] = useState("");
+
+    useEffect(() => {
+
+    }, [imagePreview]);
 
     const ApiCloudUpload = async () => {
         try {
@@ -20,6 +35,7 @@ function NewPainting() {
             const resp = await doApiMethod(url, "POST", { image: imgData });
 
             img_url = resp.data.secure_url;
+            setImagePreview(img_url);
 
         } catch (err) {
             console.log(err);
@@ -59,7 +75,12 @@ function NewPainting() {
     return (
         <div className=" md:flex w-5/6 mx-auto mb-8 ">
             <div className=' text-center text-base md:text-xl md:w-1/2 p-2 md:h-48'>
-                Add new Painting
+                <h2>Add new Painting</h2>
+                {(imagePreview) &&
+                    <div className='p-2'>
+                        <img src={imagePreview}></img>
+
+                    </div>}
             </div>
             <form className="md:w-1/2 p-2" onSubmit={handleSubmit(onSubForm)}>
                 {/* name */}
@@ -120,6 +141,7 @@ function NewPainting() {
                     <label className="block mb-2 text-sm">Image<span className='text-gray-500 text-xs'>(required)</span></label>
 
                     <input
+                        onChange={handleImageChange}
                         ref={uploadRef}
                         type="file"
                         className="cursor-pointer w-full p-2 mt-1 border rounded-md focus:ring-blue-500 focus:border-blue-500"
