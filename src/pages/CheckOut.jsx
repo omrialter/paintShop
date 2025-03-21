@@ -167,7 +167,7 @@ function CheckOut() {
                                         <div className='w-full text-xs text-gray-400 my-2'>You'll receive receipts and notifications at this email</div>
 
                                         <button type="submit" className=' text-center text-xs w-full text-white bg-gray-900
-                 px-6 py-5' >CONTINUE</button>
+                                         px-6 py-5' >CONTINUE</button>
 
                                     </form>
 

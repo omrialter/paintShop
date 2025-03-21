@@ -37,7 +37,7 @@ function PurchasePost({ date_created, id, first_name, last_name, email, checked,
                 <button className={'text-2xl'} onClick={() => changeCheckBox(id)} >{checked === false ? <GrCheckboxSelected /> : <ImCheckboxChecked />}</button>
             </div>
             <div><span className='font-bold'>First Name:</span> {first_name}</div>
-            <div><span className='font-bold'>Lirst Name:</span> {last_name}</div>
+            <div><span className='font-bold'>Last Name:</span> {last_name}</div>
             <div><span className='font-bold'>Email:</span> {email}</div>
             <div><span className='font-bold'>Country:</span> {country}</div>
             {(state) ? <div><span className='font-bold'>State:</span> {state}</div>
