@@ -77,7 +77,7 @@ function PickedPainting() {
                         <div className='bg-black p-2 text-white absolute right-0 top-0'>
                             SOLD
                         </div> : ""}
-                    <img src={painting.image_url} />
+                    <img src={painting.image_url} alt={painting.name} />
                 </div>
 
                 <div className='md:w-1/2 py-2 md:px-6 '>

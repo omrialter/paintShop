@@ -424,7 +424,7 @@ function CheckOut() {
                             <div key={item._id} className="w-full">
                                 <div className="flex ">
                                     <div className="w-1/3">
-                                        <img className='h-[80px] w-[80px]' src={item.image_url} />
+                                        <img className='h-[80px] w-[80px]' src={item.image_url} alt={item.name} />
                                     </div>
                                     <div className="w-1/3">
                                         <div>{item.name}</div>
