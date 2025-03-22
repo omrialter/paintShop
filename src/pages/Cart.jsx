@@ -1,5 +1,5 @@
 
-import { React, useContext, useEffect } from 'react';
+import { React, useContext } from 'react';
 import { FiX } from "react-icons/fi";
 import { MyContext } from "../context/myContext";
 import { useNavigate } from "react-router-dom";
@@ -15,11 +15,6 @@ function Cart() {
 
 
 
-    useEffect(() => {
-
-        console.log(cart);
-
-    }, [cart])
 
     return (
         <div className="w-5/6 mx-auto">
