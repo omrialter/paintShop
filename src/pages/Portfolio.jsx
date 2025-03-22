@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { URL, doApiGet } from "../services/apiService";
 import PortPainting from "../components/portfolio/PortPainting";
 import LoadingComp from "../components/LoadingComp";
@@ -6,17 +6,18 @@ import LoadingComp from "../components/LoadingComp";
 function Portfolio() {
 
     const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
 
 
+
+
     const getPaintings = async (_page) => {
+        if (isLoading || !hasMore) return;
         setIsLoading(true);
         try {
             const url = `${URL}/paintings/allPaintings?page=${_page}&limit=6`;
-
-
             const data = await doApiGet(url);
             console.log("Received Data:", data);
             if (_page === 1) {
@@ -35,9 +36,24 @@ function Portfolio() {
         }
     };
 
+    const handleScroll = useCallback(() => {
+        if (
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+            !isLoading &&
+            hasMore
+        ) {
+            setPage(prev => prev + 1);
+        }
+    }, [isLoading, hasMore]);
+
     useEffect(() => {
         getPaintings(page);
     }, [page])
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [handleScroll]);
 
 
 
@@ -60,14 +76,8 @@ function Portfolio() {
                 )
             })}
 
-            {!isLoading && hasMore && (
-                <button
-                    onClick={() => setPage(prev => prev + 1)}
-                    className="mx-auto my-4 px-6 py-2 bg-gray-800 text-white rounded"
-                >
-                    Load More
-                </button>
-            )}
+
+
             {isLoading && posts.length > 0 && <LoadingComp />}
 
         </div>

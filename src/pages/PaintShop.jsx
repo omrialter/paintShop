@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { URL, doApiGet } from "../services/apiService";
 import Painting from "../components/paintShop/Painting";
 import LoadingComp from "../components/LoadingComp";
-
-
 
 
 
@@ -15,11 +13,13 @@ function PaintShop() {
     const [hasMore, setHasMore] = useState(true);
 
 
+
+
+
     const getPaintings = async (_page) => {
         setIsLoading(true);
         try {
             const url = `${URL}/paintings/allPaintings?page=${_page}&limit=6`;
-
 
             const data = await doApiGet(url);
             console.log("Received Data:", data);
@@ -39,6 +39,23 @@ function PaintShop() {
         }
     };
 
+
+    const handleScroll = useCallback(() => {
+        if (
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
+            !isLoading &&
+            hasMore
+        ) {
+            setPage(prev => prev + 1);
+        }
+    }, [isLoading, hasMore]);
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [handleScroll]);
+
+
     useEffect(() => {
         getPaintings(page);
 
@@ -47,7 +64,7 @@ function PaintShop() {
     return (
         <div className='lg:flex lg:flex-wrap lg:justify-between w-5/6 mx-auto'>
 
-            {isLoading && <LoadingComp />}
+            {isLoading && page < 2 && <LoadingComp />}
 
             {posts.map((item) => (
                 <Painting
@@ -60,14 +77,7 @@ function PaintShop() {
                 />
             ))}
 
-            {!isLoading && hasMore && (
-                <button
-                    onClick={() => setPage(prev => prev + 1)}
-                    className="mx-auto my-4 px-6 py-2 bg-gray-800 text-white rounded"
-                >
-                    Load More
-                </button>
-            )}
+
             {isLoading && posts.length > 0 && <LoadingComp />}
 
 
