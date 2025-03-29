@@ -45,7 +45,7 @@ function Contact() {
                     <label className="block mb-2 text-sm">Name <span className='text-gray-500 text-xs'>(required)</span></label>
                     <div className="mt-1">
                         <input
-                            {...register("name", { required: true, minLength: 2 })}
+                            {...register("name", { required: true, minLength: 2, maxLength: 50 })}
                             className="block w-full pl-12 p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                             type="text"
                             required
@@ -53,7 +53,7 @@ function Contact() {
                     </div>
                     {errors.name && (
                         <div className="text-sm text-red-600">
-                            * Enter valid username(min 3 chars)
+                            * Enter valid name(min 2 chars max 50 chars)
                         </div>
                     )}
                 </div>
@@ -65,6 +65,7 @@ function Contact() {
                         <input
                             {...register("email", {
                                 required: true,
+                                maxLength: 254,
                                 validate: validateEmail,
                             })}
                             className="block w-full pl-12 p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
@@ -83,7 +84,7 @@ function Contact() {
                     <label className="block mb-2 text-sm">Subject <span className='text-gray-500 text-xs'>(required)</span></label>
                     <div className="mt-1">
                         <input
-                            {...register("subject", { required: true, minLength: 2 })}
+                            {...register("subject", { required: true, minLength: 3, maxLength: 60 })}
                             className="block w-full pl-12 p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                             type="text"
                             required
@@ -91,7 +92,7 @@ function Contact() {
                     </div>
                     {errors.subject && (
                         <div className="text-sm text-red-600">
-                            * Enter valid username(min 3 chars)
+                            * Enter valid username(min 3 chars, max 60 chars)
                         </div>
                     )}
                 </div>
@@ -100,7 +101,7 @@ function Contact() {
                     <label className="block mb-2 text-sm">Message <span className='text-gray-500 text-xs'>(required)</span></label>
                     <div className="mt-1">
                         <textarea
-                            {...register("message", { required: true, minLength: 2 })}
+                            {...register("message", { required: true, minLength: 3, maxLength: 500 })}
                             className="block w-full pl-12 p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                             type="text"
                             required
@@ -108,7 +109,7 @@ function Contact() {
                     </div>
                     {errors.message && (
                         <div className="text-sm text-red-600">
-                            * Enter valid username(min 3 chars)
+                            * Enter valid username(min 3 chars, max 500 chars)
                         </div>
                     )}
                 </div>

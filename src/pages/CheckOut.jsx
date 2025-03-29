@@ -6,6 +6,9 @@ import { USA_States } from '../services/States';
 import { URL, doApiMethod } from "../services/apiService";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom"
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 
 
 
@@ -25,6 +28,8 @@ function CheckOut() {
     });
     const handleCountryChange = (event) => { setSelectedCountry(event.target.value); };
     const handleStateChange = (event) => { setSelectedState(event.target.value); };
+    const [phone, setPhone] = useState('');
+
 
 
 
@@ -45,6 +50,7 @@ function CheckOut() {
     };
 
     const onSubmit2 = (data2) => {
+
         setCheckoutObj(prevState => ({
             ...prevState,
             first_name: data2.first_name,
@@ -54,7 +60,7 @@ function CheckOut() {
             state: selectedState,
             country: selectedCountry,
             zip_code: data2.zip_code,
-            phone_number: data2.phone_number
+            phone_number: phone
         }));
         setIsAddressSubmited(true)
     }
@@ -73,6 +79,7 @@ function CheckOut() {
     };
 
     const CreateOrder = async () => {
+        console.log("Checkout button clicked");
         try {
             const url = URL + "/payments/pay";
 
@@ -90,6 +97,7 @@ function CheckOut() {
             const data = await doApiMethod(url, "POST", cartDetails);
             if (data) {
                 console.log(data);
+                await new Promise(resolve => setTimeout(resolve, 300));
                 window.location.href = data;
             }
         } catch (error) {
@@ -159,9 +167,9 @@ function CheckOut() {
                                         <br />
                                         <input style={{ backgroundColor: 'rgb(246, 246, 246)' }} className='w-full mt-1 h-8 p-5'
                                             type="email" placeholder="Email Address"
-                                            {...register("email", { required: true, validate: validateEmail })}
+                                            {...register("email", { required: true, validate: validateEmail, maxLength: 254 })}
                                         />
-                                        {errors.email && <p>Email is required.</p>}
+                                        {errors.email && <p>Enter valid mail.</p>}
                                         <br />
 
                                         <div className='w-full text-xs text-gray-400 my-2'>You'll receive receipts and notifications at this email</div>
@@ -186,7 +194,7 @@ function CheckOut() {
                                         <div>SHIPPING</div>
                                         <div className='font-medium'>{checkoutObj.first_name} {checkoutObj.last_name}</div>
                                         <div className="text-gray-500">
-                                            <div>{checkoutObj.phone_number}</div>
+                                            <div>{phone}</div>
                                             <div>{checkoutObj.address}</div>
                                             <div>{checkoutObj.city} </div>
                                             <div>{checkoutObj.zip_code}</div>
@@ -205,7 +213,7 @@ function CheckOut() {
                                                 <label className="block mb-2 text-gray-500 text-xs font-medium">FIRST NAME </label>
                                                 <div className="mt-1">
                                                     <input
-                                                        {...register("first_name", { required: true, minLength: 2 })}
+                                                        {...register("first_name", { required: true, minLength: 2, maxLength: 50 })}
                                                         className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                         type="text"
                                                         placeholder="First Name"
@@ -214,7 +222,7 @@ function CheckOut() {
                                                 </div>
                                                 {errors.first_name && (
                                                     <div className="text-sm text-red-600">
-                                                        * Enter valid name(min 2 chars)
+                                                        * Enter valid name(min 2 chars, max 50 chars)
                                                     </div>
                                                 )}
                                             </div>
@@ -223,7 +231,7 @@ function CheckOut() {
                                                 <label className="block mb-2 text-gray-500 text-xs font-medium">LAST NAME </label>
                                                 <div className="mt-1">
                                                     <input
-                                                        {...register("last_name", { required: true, minLength: 2 })}
+                                                        {...register("last_name", { required: true, minLength: 2, maxLength: 50 })}
                                                         className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                         type="text"
                                                         placeholder="Last Name"
@@ -232,7 +240,7 @@ function CheckOut() {
                                                 </div>
                                                 {errors.last_name && (
                                                     <div className="text-sm text-red-600">
-                                                        * Enter valid name(min 3 chars)
+                                                        * Enter valid Last name(min 2 chars, max 50 chars)
                                                     </div>
                                                 )}
                                             </div>
@@ -243,7 +251,7 @@ function CheckOut() {
                                             <label className="block mb-2 text-gray-500 text-xs font-medium">ADDRESS </label>
                                             <div className="mt-1">
                                                 <input
-                                                    {...register("address", { required: true, minLength: 2 })}
+                                                    {...register("address", { required: true, minLength: 3, maxLength: 100 })}
                                                     className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                     type="text"
                                                     placeholder="Address"
@@ -252,7 +260,7 @@ function CheckOut() {
                                             </div>
                                             {errors.address && (
                                                 <div className="text-sm text-red-600">
-                                                    * Enter valid address(min 2 chars)
+                                                    * Enter valid address(min 3 chars, max 100 chars)
                                                 </div>
                                             )}
                                         </div>
@@ -276,7 +284,7 @@ function CheckOut() {
 
                                                 <div>
                                                     <input
-                                                        {...register("zip_code", { required: true, minLength: 2 })}
+                                                        {...register("zip_code", { required: true, minLength: 4, maxLength: 12 })}
                                                         className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                         type="text"
                                                         placeholder="Zip Code"
@@ -285,7 +293,7 @@ function CheckOut() {
                                                 </div>
                                                 {errors.zip_code && (
                                                     <div className="text-sm text-red-600">
-                                                        * Enter valid Zip code(min 2 chars)
+                                                        * Enter valid Zip code(min 4 chars, max 12 chars)
                                                     </div>
                                                 )}
                                             </div>
@@ -294,7 +302,7 @@ function CheckOut() {
 
                                                 <div >
                                                     <input
-                                                        {...register("city", { required: true, minLength: 2 })}
+                                                        {...register("city", { required: true, minLength: 2, maxLength: 40 })}
                                                         className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                         type="text"
                                                         placeholder="City"
@@ -303,7 +311,7 @@ function CheckOut() {
                                                 </div>
                                                 {errors.city && (
                                                     <div className="text-sm text-red-600">
-                                                        * Enter valid City(min 2 chars)
+                                                        * Enter valid City(min 2 chars,  max 40 chars)
                                                     </div>
                                                 )}
                                             </div>
@@ -342,12 +350,19 @@ function CheckOut() {
                                         <div className="mb-6">
                                             <label className="block mb-2 text-gray-500 text-xs font-medium">PHONE NUMBER </label>
                                             <div className="mt-1">
-                                                <input
+                                                {/* <input
                                                     {...register("phone_number", { required: true, minLength: 8 })}
                                                     className="block w-full p-2 border border-gray-800 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-100"
                                                     type="text"
                                                     placeholder="phone_number"
                                                     required
+                                                /> */}
+                                                <PhoneInput
+                                                    country={'us'}
+                                                    enableAreaCodes={true}
+                                                    international={true}
+                                                    value={phone}
+                                                    onChange={setPhone}
                                                 />
                                             </div>
                                             {errors.phone_number && (
@@ -454,3 +469,4 @@ function CheckOut() {
 }
 
 export default CheckOut;
+

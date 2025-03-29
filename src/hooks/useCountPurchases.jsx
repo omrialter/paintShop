@@ -17,7 +17,7 @@ export const useCountPurchases = () => {
 
     useEffect(() => {
         countUnCheckedPurchases()
-    })
+    }, [])
 
 
 

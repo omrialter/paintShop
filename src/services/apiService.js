@@ -17,10 +17,17 @@ export const doApiGet = async (_url) => {
         return resp.data;
     }
     catch (err) {
-        console.log(err);
-        throw err;
+        if (err.response) {
+            console.error("API Error:", err.response.status, err.response.data);
+        } else if (err.request) {
+            console.error("No response from API:", err.request);
+        } else {
+            console.error("General Error:", err.message);
+        }
     }
 }
+
+
 
 export const doApiMethod = async (_url, _method, _body) => {
     try {

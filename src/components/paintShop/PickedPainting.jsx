@@ -84,9 +84,15 @@ function PickedPainting() {
                     <h2 className='hidden md:block text-5xl font-light mb-4'>{painting.name}</h2>
                     <div className='text-md text-gray-500 mb-2'>{painting.desc}</div>
                     <div className='text-md text-gray-500 mb-4'>${painting.price}</div>
-                    <button className='duration-200 text-center text-xs w-[200px] hover:text-white hover:bg-black
+                    {!(localStorage[TOKEN_KEY]) &&
+                        <div>
+                            <button className='duration-200 text-center text-xs w-[200px] hover:text-white hover:bg-black
                  px-6 py-3 border-2 border-black' onClick={() => cartButton()} >ADD TO CART</button>
-                    <br></br>
+                            <br></br>
+
+                        </div>
+                    }
+
                     {localStorage[TOKEN_KEY] &&
                         <>
                             <button className="duration-200 p-2 my-1 w-[100px] border-2 border-black hover:text-white hover:bg-black " onClick={() => deletePainting()} >Delete</button>
